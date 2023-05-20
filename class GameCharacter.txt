@@ -1,0 +1,164 @@
+class GameCharacter:
+
+  def _init_(self, char_type, char_name):
+
+    self.char_type = char_type
+
+    self.char_name = char_name
+
+    self.hp = 100
+
+    self.at = 0
+
+    self.df = 0
+
+    self.xp = 0
+
+    self.rk = 1
+
+
+
+    if char_type == 'w':
+
+      self.setup_warrior()
+
+    elif char_type == 't':
+
+      self.setup_tanker()
+
+
+
+  def setup_warrior(self):
+
+    self.at = random.randint(5, 20)
+
+    self.df = random.randint(1, 10)
+
+
+
+  def setup_tanker(self):
+
+    #...
+
+    #...
+
+
+
+  def attack(self, target):
+
+    damage = self.at - target.df + random.randint(-5, 10)
+
+    target.hp -= damage
+class GameCharacter:
+
+  def _init_(self, char_type, char_name):
+
+    self.char_type = char_type
+
+    self.char_name = char_name
+
+    self.hp = 100
+
+    self.at = 0
+
+    self.df = 0
+
+    self.xp = 0
+
+    self.rk = 1
+
+
+
+    if char_type == 'w':
+
+      self.setup_warrior()
+
+    elif char_type == 't':
+
+      self.setup_tanker()
+
+
+
+  def setup_warrior(self):
+
+    self.at = random.randint(5, 20)
+
+    self.df = random.randint(1, 10)
+
+
+
+  def setup_tanker(self):
+
+    #...
+
+    #...
+
+
+
+  def attack(self, target):
+
+    damage = self.at - target.df + random.randint(-5, 10)
+
+    target.hp -= damage
+
+David Tuk Wai Leong9:58 PM
+###
+
+David Tuk Wai Leong9:59 PM
+import gamecharacter
+
+player_units = []
+
+ai_units = []
+
+rounds = 1
+
+game_over = False
+
+
+
+def main():
+
+  # setup player units
+
+  for i in range(3):
+
+    char_type = input("Enter character type [w/t]: ")
+
+    char_name = input("Enter character name: ")
+
+    unit1 = gamecharacter.GameCharacter(char_type, char_name)
+
+    player_units.append(unit1)
+
+
+
+  # setup AI units
+
+
+
+  while game_over == False:
+
+    if rounds % 2 == 1: # player's round
+
+      print(player_units)
+
+      print(ai_units)
+
+      choice = int(input("Enter unit to use: "))
+
+      target = int(input("Enter AI unit to attack: "))
+
+      player_units[choice].attack(target)
+
+    else: ## AI's round
+
+      #...
+
+      #...
+
+
+
+
+
+main()
