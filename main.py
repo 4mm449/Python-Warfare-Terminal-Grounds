@@ -1,10 +1,14 @@
 import character
 import random
 import os
-import platform
+from sys import platform
+if platform == "win32":
+    import winsound
 
 RANK = ["Bronze", "Silver", "Gold", "Diamond"]
+
 def main():
+    opsystem("win.mp3")
     game_intro()
     global player
     global ai
@@ -323,7 +327,23 @@ AI Unit {i+1}:
         # print("--------------------------\n")
 
     # print("\n-----------------------------------\n")
-
+def opsystem(audio: str):
+    if platform == "linux" or platform == "linux2":
+        os.system(f"aplay {audio}&")
+        # print("Linux")
+        # linux
+    elif platform == "darwin":
+        # print("MacOS")
+        os.system(f"afplay {audio}&")
+        # OS X
+    elif platform == "win32":
+        winsound.PlaySound(f"{audio}", winsound.SND_ASYNC)
+        # print("Windows")
+        # Windows...
+    else:
+        print("Sorry, sound for your operating system is not supported yet")
+        
+    
 def progress_bar(value):
     zerototen = f'''
     █▒▒▒▒▒▒▒▒▒ {value}
