@@ -8,7 +8,7 @@ if platform == "win32":
 RANK = ["Bronze", "Silver", "Gold", "Diamond"]
 
 def main():
-    opsystem("win.mp3")
+    opsystem("audio/intro.wav")
     game_intro()
     global player
     global ai
@@ -38,6 +38,7 @@ def main():
                 if profession[0].upper() == 'W' or profession[0].upper() == 'T':
                     profession = profession[0].upper() 
                     unit = character.Character(name, profession, i + 1)
+                    
                     
                     print(f'''
 ---------------------------
@@ -135,14 +136,26 @@ AI Unit {i + 1}:
                     # attacker_HP = int(attacker_unit["HP"])
                     # victim_unit = ai.units[victim]
                     # victim_HP = int(victim_unit["HP"])
+                    
+                    # attackerhp = progress_bar(player.units[attacker].attrib["HP"])
                     print(f'''
 ---------------------------
-Player Unit {attacker + 1}:          
----------------------------                     
+Player Unit {attacker + 1}:
+---------------------------''', end='') 
+                    progress_bar(player.units[attacker].attrib["HP"]) 
+                    print(f'''                               
 {player.units[attacker]}
-
 ---------------------------
 ''')
+
+#                     print(f'''
+# ---------------------------
+# Player Unit {attacker + 1}:           
+# ---------------------------                     
+# {player.units[attacker]}
+
+# ---------------------------
+# ''')
                 
                     print(f'''
 ---------------------------
@@ -218,7 +231,8 @@ def attack(attacker, victim):
 
     print(f"\n{attacker.attrib['Name']} is attacking {victim.attrib['Name']}!\n")
     # damage = max(0, attacker.attrib["ATK"] - victim.attrib["DEF"])
-    os.system("afplay slash.mp3&")
+    opsystem("audio/slash.wav")
+    # os.system("afplay slash.mp3&")
     # Calculate damage
     randomatkpt = random.randint(-5, 10)
     damage = attacker.attrib["ATK"] - victim.attrib["DEF"] + randomatkpt
@@ -239,7 +253,8 @@ def attack(attacker, victim):
         victim.attrib["HP"] = 100
     if victim.attrib["HP"] <= 0:
         print("{Name} has been defeated!" .format(**victim.attrib))
-        os.system("afplay unit_dead.wav&")
+        opsystem("audio/unit_dead.wav")
+        # os.system("afplay unit_dead.wav&")
         if victim in player.units:
             player.units.remove(victim)
         elif victim in ai.units:
@@ -266,7 +281,8 @@ def attack(attacker, victim):
         # attacker. = attacker.attrib["Rank"]
         # print(f"[+] EXP -100, Player Unit {attacker +1}: ", end='')
         print("\n[+] EXP -100, {Profession} {Name} has been promoted to {Rank}. Press return to continue..." .format(**attacker.attrib), end='')
-        os.system("afplay level_up.wav&")
+        opsystem("audio/level_up.wav")
+        # os.system("afplay level_up.wav&")
     
     # Promotion logic - victim
     elif victim.attrib["EXP"] >= 100:
@@ -281,7 +297,8 @@ def attack(attacker, victim):
         # victim. = victim.attrib["Rank"]
         # print(f"[+] EXP -100,  Unit {victim +1}: ", end='')
         print("\n[+] EXP -100, {Profession} {Name} has been promoted to {Rank}. Press return to continue..." .format(**victim.attrib), end='')
-        os.system("afplay level_up.wav&")
+        opsystem("audio/level_up.wav")
+        # os.system("afplay level_up.wav&")
         
 
 
@@ -290,11 +307,13 @@ def attack(attacker, victim):
 
 def is_game_over(player_units, ai_units):
     if all(unit.attrib["HP"] <= 0 for unit in player_units):
-        print("AI wins! Game over.")
+        print(f"{player_name} lost. Game over.")
+        opsystem("audio/lost.wav")
         return True
     elif all(unit.attrib["HP"] <= 0 for unit in ai_units):
         print(f"{player_name} wins! Congratulations!")
-        os.system("afplay win.mp3&")
+        opsystem("audio/win.wav")
+        # os.system("afplay win.mp3&")
         return True
     else:
         return False
@@ -346,34 +365,34 @@ def opsystem(audio: str):
     
 def progress_bar(value):
     zerototen = f'''
-    █▒▒▒▒▒▒▒▒▒ {value}
+█▒▒▒▒▒▒▒▒▒ {value} HP
     '''
     tentotwenty = f'''
-    ██▒▒▒▒▒▒▒▒ {value}
+██▒▒▒▒▒▒▒▒ {value} HP
     '''
     twentytothirty = f'''
-    ███▒▒▒▒▒▒▒ {value}
+███▒▒▒▒▒▒▒ {value} HP
     '''
     thirtytoforty = f'''
-    ████▒▒▒▒▒▒ {value}
+████▒▒▒▒▒▒ {value} HP
     '''
     fortytofifty = f'''
-    █████▒▒▒▒▒ {value}
+█████▒▒▒▒▒ {value}
     '''
     fiftytosixty = f'''
-    ██████▒▒▒▒ {value}
+██████▒▒▒▒ {value} HP
     '''
     sixtytoseventy = f'''
-    ███████▒▒▒ {value}
+███████▒▒▒ {value} HP
     '''
     seventytoeighty = f'''
-    ████████▒▒ {value}
+████████▒▒ {value} HP
     '''
     eightytoninety = f'''
-    █████████▒ {value}
+█████████▒ {value} HP
     '''
     ninetytohundred = f'''
-    ██████████ {value}
+██████████ {value} HP
     '''
     if value > 0 and value <= 10:
         print(zerototen)
