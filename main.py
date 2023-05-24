@@ -124,68 +124,37 @@ AI Unit {i + 1}:
             print(f"It's {player_name}'s turn to attack")
             log(f"It's {player_name}'s turn to attack", out)
             # display_stats(player.units, ai.units)
+            
             stats_check = True
             while stats_check:
                 attacker = input("Enter unit that you wish to send for an attack [1-3] or type U to check unit stats: ")
                 log("Enter unit that you wish to send for an attack [1-3] or type U to check unit stats: ", out)
                 log(attacker, inp)
-                try:
-                    
-                    if attacker.upper() == "U":
-                        #display game stats
-                        display_stats(player.units, ai.units)
-                        attacker = input("Enter unit that you wish to send for an attack [1-3]: ")
-                        log("Enter unit that you wish to send for an attack [1-3]: ", out)
-                        log(attack, inp)
-                        if attacker == '':
-                            attacker = input("[-] ERROR. No value specified. Please specify a value [1-3]: ")
-                            log("[-] ERROR. No value specified. Please specify a value [1-3]: ", out)
-                            log(attacker, inp)
-                            stats_check = True
-                        victim = input("Enter AI unit that you wish to attack [1-3]: ")
-                        log("Enter AI unit that you wish to attack [1-3]: ", out)
-                        log(victim, inp)
-                        if victim == '':
-                            victim = input("[-] ERROR. No value specified. Please specify a value [1-3]: ")
-                            log("[-] ERROR. No value specified. Please specify a value [1-3]: ", out)
-                            log(victim, inp)
-                            stats_check = True
-                        stats_check = False
-                    # elif int(attacker) > len(player.units):
-                    #     print('[-] ERROR. There is no unit {attacker} present. Please check all available units by entering "U"')
-                    #     try_again = True
-                    else:
-                        stats_check = False
-                        victim = input("Enter AI unit that you wish to attack [1-3]: ")
-                        log("Enter AI unit that you wish to attack [1-3]: ", out)
-                        log(victim, inp)
-                    if attacker == '':
-                        attacker = input("[-] ERROR. No value specified. Please specify a value [1-3 or U]: ")
-                        log("[-] ERROR. No value specified. Please specify a value [1-3 or U]: ", out)
-                        log(attacker, inp)
-                        try_again = True
-                    elif victim == '':
-                        victim = input("[-] ERROR. No value specified. Please specify a value [1-3]: ")
-                        log("[-] ERROR. No value specified. Please specify a value [1-3]: ", out)
-                        log(victim, inp)
-                        try_again = True
-                    # elif int(attacker) not in [1, 2, 3] or int(victim) not in [1, 2, 3]:
-                    #     try_again = True
-                    # else:
-                    #     try_again = True
-                    #     print("[-] ERROR. Invalid Input, Please try again")
-                        
-                except:
-                    attacker = input("[-] ERROR. No value specified. Please specify a value [1-3 or U]: ")
-                    log("[-] ERROR. No value specified. Please specify a value [1-3 or U]: ", out)
+
+                if attacker.upper() == "U":
+                    # Display game stats
+                    display_stats(player.units, ai.units)
+                    attacker = input("Enter unit that you wish to send for an attack [1-3]: ")
+                    log("Enter unit that you wish to send for an attack [1-3]: ", out)
                     log(attacker, inp)
-                    try_again = True
-                # except ValueError:
-                #     attacker = input("[-] ERROR. No value specified. Please specify a value [1-3 or U]: ")
-                #     try_again = True
                     
-            # try:
-                
+                if attacker.isdigit() and int(attacker) in range(1, 4):
+                    stats_check = False
+                else:
+                    print("[-] ERROR. Invalid input. Please enter a valid option [1-3 or U]")
+
+            stats_check = True
+            while stats_check:
+                victim = input("Enter AI unit that you wish to attack [1-3]: ")
+                log("Enter AI unit that you wish to attack [1-3]: ", out)
+                log(victim, inp)
+
+                if victim.isdigit() and int(victim) in range(1, 4):
+                    stats_check = False
+                else:
+                    print("[-] ERROR. Invalid input. Please enter a valid option [1-3]")
+                    log("[-] ERROR. Invalid input. Please enter a valid option [1-3]", out)
+                    
             attacker = int(attacker) - 1
             victim = int(victim) - 1
             try:

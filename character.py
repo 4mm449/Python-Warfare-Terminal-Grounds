@@ -10,7 +10,6 @@ class Character:
             "EXP": 0,
             "Level": 1,
             "Rank": "Bronze",
-            "Unit": unit
         }
         self.unit = unit
      # player chooses warrior
