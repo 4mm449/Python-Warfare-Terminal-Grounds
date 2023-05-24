@@ -9,7 +9,8 @@ class Character:
             "DEF": random.randint(5, 10),
             "EXP": 0,
             "Level": 1,
-            "Rank": "Bronze"
+            "Rank": "Bronze",
+            "Unit": unit
         }
         self.unit = unit
      # player chooses warrior
