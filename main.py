@@ -3,19 +3,19 @@ import random
 import os
 from sys import platform
 import datetime
+
+# to check and import winsound module so that program doesnt crash on mac and linux
 if platform == "win32":
     import winsound
-log_file_name = f"logs_{datetime.datetime.now().strftime('%Y-%m-%d_%H-%M-%S')}.txt"
-global inp
-global out
-inp = 'inp'
-out = 'out'
-
-    # Open the log file in append mode
 
 
-RANK = ["Bronze", "Silver", "Gold", "Diamond"]
+# initialising all global variables
+log_file_name = f"logs_{datetime.datetime.now().strftime('%Y-%m-%d_%H-%M-%S')}.txt" # introducing what the logs filename would be
+inp = 'inp' # value for log function below
+out = 'out' # value for log function below
+RANK = ["Bronze", "Silver", "Gold", "Diamond"] # 4 different levels
 
+# main game function
 def main():
     opsystem("audio/intro.wav")
     game_intro()
@@ -121,39 +121,39 @@ AI Unit {i + 1}:
             #     victim = random.choice(player.units)
     
             
-            print(f"It's {player_name}'s turn to attack")
-            log(f"It's {player_name}'s turn to attack", out)
+            print(f"\nIt's {player_name}'s turn to attack")
+            log(f"\nIt's {player_name}'s turn to attack", out)
             # display_stats(player.units, ai.units)
             
             stats_check = True
             while stats_check:
-                attacker = input("Enter unit that you wish to send for an attack [1-3] or type U to check unit stats: ")
-                log("Enter unit that you wish to send for an attack [1-3] or type U to check unit stats: ", out)
+                attacker = input(f"Enter unit that you wish to send for an attack [1-{len(player.units)}] or type U to check unit stats: ")
+                log(f"Enter unit that you wish to send for an attack [1-{len(player.units)}] or type U to check unit stats: ", out)
                 log(attacker, inp)
 
                 if attacker.upper() == "U":
                     # Display game stats
                     display_stats(player.units, ai.units)
-                    attacker = input("Enter unit that you wish to send for an attack [1-3]: ")
-                    log("Enter unit that you wish to send for an attack [1-3]: ", out)
+                    attacker = input(f"Enter unit that you wish to send for an attack [1-{len(player.units)}]: ")
+                    log(f"Enter unit that you wish to send for an attack [1-{len(player.units)}]: ", out)
                     log(attacker, inp)
                     
                 if attacker.isdigit() and int(attacker) in range(1, 4):
                     stats_check = False
                 else:
-                    print("[-] ERROR. Invalid input. Please enter a valid option [1-3 or U]")
+                    print(f"[-] ERROR. Invalid input. Please enter a valid option [1-{len(player.units)}] or U]")
 
             stats_check = True
             while stats_check:
-                victim = input("Enter AI unit that you wish to attack [1-3]: ")
-                log("Enter AI unit that you wish to attack [1-3]: ", out)
+                victim = input(f"Enter AI unit that you wish to attack [1-{len(ai.units)}]: ")
+                log(f"Enter AI unit that you wish to attack [1-{len(ai.units)}]: ", out)
                 log(victim, inp)
 
                 if victim.isdigit() and int(victim) in range(1, 4):
                     stats_check = False
                 else:
-                    print("[-] ERROR. Invalid input. Please enter a valid option [1-3]")
-                    log("[-] ERROR. Invalid input. Please enter a valid option [1-3]", out)
+                    print(f"[-] ERROR. Invalid input. Please enter a valid option [1-{len(ai.units)}]")
+                    log(f"[-] ERROR. Invalid input. Please enter a valid option [1-{len(player.units)}]", out)
                     
             attacker = int(attacker) - 1
             victim = int(victim) - 1
@@ -218,13 +218,14 @@ AI Unit {i + 1}:
 ----------------------------------
 ''', out)
                 else:
-                    attacker = input("[-] ERROR. Invalid unit selection. Please try again. [-]")
+                    #  attacker = input("[-] ERROR. Invalid unit selection. Please try again. [-]")
+                    print("[-] ERROR. Invalid unit selection. Please try again. [-]")
                     log("[-] ERROR. Invalid unit selection. Please try again. [-]", out)
                     log(attacker, inp)
                     try_again = True
             
             except IndexError:
-                input("")
+                print("[-] The specified unit has already been killed, please enter a different unit")
                
                 
             # else:   
@@ -263,7 +264,7 @@ AI Unit {i + 1}:
                 # Execute the attack
                 # advanced AI algorithm
                 attacker = max(ai.units, key=lambda unit: unit.attrib["ATK"])
-                victim = min(player.units, key=lambda unit: unit.attrib["HP"])
+                victim = min(player.units, key=lambda unit: unit.attrib["DEF"])
                 attack(attacker, victim)
         
                 try_again = True
@@ -281,6 +282,7 @@ AI Unit {i + 1}:
         game_over = is_game_over(player.units, ai.units)
         file.close()
 
+# function to give extra exp
 def bonus_exp(victim):
         #bonus EXP points
         #Player gives more than 10 damage to AI, gets 20% more EXP
@@ -290,18 +292,19 @@ def bonus_exp(victim):
         elif damage <= 0:
             victim["EXP"] += (0.5 * damage)
 
+# main battle logic
 def attack(attacker, victim):
     global damage
-    
-    # print(f"\n{attacker.attrib['Name']} is attacking {victim.attrib['Name']}")
-    # damage = attacker.attrib["ATK"] - victim.attrib["DEF"]
-    # if damage > 0:
-    #     victim.attrib["HP"] -= damage
-    #     print(f"{victim.attrib['Name']} received {damage} damage.")
-    #     if victim.attrib["HP"] <= 0:
-    #         print(f"{victim.attrib['Name']} has been defeated.")
-    # else:
-    #     print(f"The attack was ineffective. No damage was dealt.")
+
+# print(f"\n{attacker.attrib['Name']} is attacking {victim.attrib['Name']}")
+# damage = attacker.attrib["ATK"] - victim.attrib["DEF"]
+# if damage > 0:
+#     victim.attrib["HP"] -= damage
+#     print(f"{victim.attrib['Name']} received {damage} damage.")
+#     if victim.attrib["HP"] <= 0:
+#         print(f"{victim.attrib['Name']} has been defeated.")
+# else:
+#     print(f"The attack was ineffective. No damage was dealt.")
 
     print(f"\n{attacker.attrib['Name']} is attacking {victim.attrib['Name']}!\n")
     log(f"\n{attacker.attrib['Name']} is attacking {victim.attrib['Name']}!\n", out)
@@ -317,40 +320,44 @@ def attack(attacker, victim):
     # Calculate EXP
     attacker.attrib["EXP"] += damage
     victim.attrib["EXP"] += victim.attrib["DEF"]
+
     # HP below 100, normal behaviour
     if victim.attrib["HP"] <= 100:
         print("{Name} takes " .format(**victim.attrib), end='')
         print(f"{damage} damage.\n")
-         
+            
         log("{Name} takes " .format(**victim.attrib), out)
         log(f"{damage} damage.\n", out)
     # HP never goes above 100
     elif victim.attrib["HP"] > 100:
         print("{Name} takes " .format(**victim.attrib), end='')
         print(f"0 damage.\n")
-         
+            
         log("{Name} takes " .format(**victim.attrib), out)
         log(f"0 damage.\n", out)
         victim.attrib["HP"] = 100
+        
     if victim.attrib["HP"] <= 0:
         print("{Name} has been defeated!" .format(**victim.attrib))
-        log("{Name} has been defeated!" .format(**victim.attrib), out)
-        opsystem("audio/unit_dead.wav")
+        log("{Name} has been defeated!" .format(**victim.attrib), out)   
         # os.system("afplay unit_dead.wav&")
         if victim in player.units:
+            opsystem("audio/player_dead.wav")
             player.units.remove(victim)
         elif victim in ai.units:
+            opsystem("audio/unit_dead.wav")
             ai.units.remove(victim)
+
     else:
         print("{Name} has {HP} HP remaining." .format(**victim.attrib))
         log("{Name} has {HP} HP remaining." .format(**victim.attrib), out)
-    
+
     # Bonus EXP points
     if damage > 10:
         victim.attrib["EXP"] += int(0.2 * damage)
     elif damage <= 0:
         victim.attrib["EXP"] += int(0.5 * damage)
-    
+
     # Promotion logic - attacker
     if attacker.attrib["EXP"] >= 100:
         attacker.attrib["EXP"] -= 100
@@ -364,12 +371,41 @@ def attack(attacker, victim):
         # attacker. = attacker.attrib["Rank"]
         # print(f"[+] EXP -100, Player Unit {attacker +1}: ", end='')
         opsystem("audio/level_up.wav")
-        input("\n[+] EXP -100, {Profession} {Name} has been promoted to {Rank}. Press return to continue..." .format(**attacker.attrib))
+        print("\n[+] EXP -100, {Profession} {Name} has been promoted to {Rank}." .format(**attacker.attrib))
+        if attacker in player.units:
+            choice = input("\n(1) Upgrade {Profession} {Name}s ATK by 1,\n(2) Upgrade {Profession} {Name}'s DEF by 1\nPlease choose an upgrade option [1-2]: ".format(**attacker.attrib))
+            upgrade_check = True
+            while upgrade_check:
+                if choice == '1' or choice == '2':
+                    if choice == '1':
+                        attacker.attrib["ATK"] += 1
+                        print("[+] {Profession} {Name}s ATK successfully increased by 1" .format(**attacker.attrib))
+                        upgrade_check = False
+                    elif choice == '2':
+                        attacker.attrib["DEF"] += 1
+                        print("[+] {Profession} {Name}s DEF successfully increased by 1".format(**attacker.attrib))
+                        upgrade_check = False
+                    elif choice == '':
+                        choice = input("[-] ERROR. No value specified, Please try again [1-2]: ")
+                        upgrade_check = True
+                else:
+                    choice = input("[-] Invalid Choice, Please try again [1-2]: ")
+                    upgrade_check = True
+        elif attacker in ai.units:
+            options = [int(attacker.attrib["ATK"]), int(attacker.attrib["DEF"])]
+            choice = random.choice(options)
+            if choice == attacker.attrib["ATK"]:
+                attacker.attrib["ATK"] += 1
+                print("\n[+] {Profession} {Name}s ATK successfully increased by 1" .format(**attacker.attrib))
+            elif choice == attacker.attrib["DEF"]:
+                attacker.attrib["DEF"] += 1
+                print("\n[+] {Profession} {Name}s ATK successfully increased by 1" .format(**attacker.attrib))
+            
         
-        log("\n[+] EXP -100, {Profession} {Name} has been promoted to {Rank}. Press return to continue..." .format(**attacker.attrib), out)
+        log("\n[+] EXP -100, {Profession} {Name} has been promoted to {Rank}." .format(**attacker.attrib), out)
         
         # os.system("afplay level_up.wav&")
-    
+
     # Promotion logic - victim
     elif victim.attrib["EXP"] >= 100:
         victim.attrib["EXP"] -= 100
@@ -383,17 +419,45 @@ def attack(attacker, victim):
         # victim. = victim.attrib["Rank"]
         # print(f"[+] EXP -100,  Unit {victim +1}: ", end='')
         opsystem("audio/level_up.wav")
-        input("\n[+] EXP -100, {Profession} {Name} has been promoted to {Rank}. Press return to continue..." .format(**victim.attrib))
+        print("\n[+] EXP -100, {Profession} {Name} has been promoted to {Rank}." .format(**victim.attrib))
+        if victim in player.units:
+            choice = input("\n(1) Upgrade {Profession} {Name}'s ATK by 1,\n(2) Upgrade {Profession} {Name}'s DEF by 1\nPlease choose an upgrade option [1-2]: ".format(**victim.attrib))
+            upgrade_check = True
+            while upgrade_check:
+                if choice == '1' or choice == '2':
+                    if choice == '1':
+                        victim.attrib["ATK"] += 1
+                        print("\n[+] {Profession} {Name}s ATK successfully increased by 1" .format(**victim.attrib))
+                        upgrade_check = False
+                    elif choice == '2':
+                        victim.attrib["DEF"] += 1
+                        print("\n[+] {Profession} {Name}s DEF successfully increased by 1".format(**victim.attrib))
+                        upgrade_check = False
+                    elif choice == '':
+                        choice = input("[-] ERROR. No value specified, Please try again [1-2]: ")
+                        upgrade_check = True
+                else:
+                    choice = input("[-] ERROR. Invalid Choice, Please try again [1-2]: ")
+                    upgrade_check = True
+        elif victim in ai.units:
+            options = [victim.attrib["ATK"], victim.attrib["DEF"]]
+            choice = random.choice(options)
+            if choice == victim.attrib["ATK"]:
+                victim.attrib["ATK"] += 1
+                print("\n[+] {Profession} {Name}s ATK successfully increased by 1" .format(**victim.attrib))
+            elif choice == victim.attrib["DEF"]:
+                victim.attrib["DEF"] += 1
+                print("\n[+] {Profession} {Name}s ATK successfully increased by 1" .format(**victim.attrib))
         
-        log("\n[+] EXP -100, {Profession} {Name} has been promoted to {Rank}. Press return to continue..." .format(**victim.attrib), out)
+        log("\n[+] EXP -100, {Profession} {Name} has been promoted to {Rank}." .format(**victim.attrib), out)
         
         # os.system("afplay level_up.wav&")
         
 
 
-    print("\n-----------------------------------\n")
+print("\n-----------------------------------\n")
 
-
+# check if all units are dead and check if the game is done
 def is_game_over(player_units, ai_units):
     if all(unit.attrib["HP"] <= 0 for unit in player_units):
         print(f"{player_name} lost. Game over.")
@@ -411,7 +475,7 @@ def is_game_over(player_units, ai_units):
     else:
         return False
 
-
+# display all units on command
 def display_stats(player_units, ai_units):
     print("\n---------- Player Units ----------")
     log("\n---------- Player Units ----------", out)
@@ -460,6 +524,8 @@ AI Unit {i+1}:     {aihp}
         # print("--------------------------\n")
 
     # print("\n-----------------------------------\n")
+
+# audio logic for different operating systems
 def opsystem(audio: str):
     if platform == "linux" or platform == "linux2":
         os.system(f"aplay {audio}&")
@@ -477,10 +543,13 @@ def opsystem(audio: str):
         print("Sorry, sound for your operating system is not supported yet")
         log("Sorry, sound for your operating system is not supported yet", out)
  
+ # f
+
+# logging logic
 def log(event, inpout):
     # Define the log file name with the current date and time
     global file
-    with open(log_file_name, "a") as file:
+    with open(f"logs/{log_file_name}", "a") as file:
         # current date and time
         # current_time = datetime.datetime.now()
         # file.write(f"{current_time}\n")
@@ -491,7 +560,8 @@ def log(event, inpout):
             file.write(f"{event}\n")
         # file.write(f"Details: {details}\n")
         # file.write("--------------------\n")       
-    
+
+# progress bar elements for HP and others    
 def progress_bar(value):
     zerototen = f'''█▒▒▒▒▒▒▒▒▒ {value} HP'''
     tentotwenty = f'''██▒▒▒▒▒▒▒▒ {value} HP'''
@@ -527,6 +597,7 @@ def progress_bar(value):
     else:
         return "Invalid Value"
 
+# game introduction
 def game_intro():
 #     banner_text = '''                                            
 #  _____     _   _   _        _____             _     
@@ -577,7 +648,7 @@ def game_intro():
     print(f"Each unit has a:\n(1) Name\n(2) Health Point (HP)\n(3) Attack Point (ATK)\n(4) Defence Point (DEF)\n(5) Experience (EXP)\n(6) Rank: {RANK[0]} | {RANK[1]} | {RANK[2]} | {RANK[3]}")
     log(f"Okay! let's play, {player_name}! This game allows you to setup a team which is made up of 3 units. The characters available to fill up your 3 units can ONLY be either a (W)arrior or a (T)anker.", out)
     log(f"Each unit has a:\n(1) Name\n(2) Health Point (HP)\n(3) Attack Point (ATK)\n(4) Defence Point (DEF)\n(5) Experience (EXP)\n(6) Rank: {RANK[0]} | {RANK[1]} | {RANK[2]} | {RANK[3]}", out)
-    cont = input("\nEnter I for instructions or Press return to continue: ")
+    cont = input("\nEnter I for instructions or Press return (enter) to continue: ")
     if cont.upper() == "I":
         print("Instructions:")
         print("1. Each player takes turns attacking.")
@@ -617,8 +688,6 @@ def game_intro():
     # return init2, init3, init4, init5, init6
 
 
-game_over = False
-rounds = 1
 
 if __name__ == "__main__":
     main()
