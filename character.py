@@ -12,6 +12,7 @@ class Character:
             "Rank": "Bronze",
         }
         self.unit = unit
+        # self.coins = 0
      # player chooses warrior
         if profession == 'W':
             self.setup_warrior()
@@ -32,7 +33,6 @@ class Character:
         self.attrib["Profession"] = 'Tanker'
 
     def __str__(self):
-        # return f"{self.attrib['Name']} ({self.attrib['Profession']})"
         return '''
 (1) Name: {Name}
 (2) Profession: {Profession}
@@ -46,6 +46,8 @@ class Character:
 class Player:
     def __init__(self):
         self.units = []
+        self.coins = 0
+        
 
     def add_unit(self, unit):
         self.units.append(unit)
@@ -53,11 +55,14 @@ class Player:
         self.units.remove(unit)
     
 
+    
+
 
 
 class AI:
     def __init__(self):
         self.units = []
+        self.coins = 0
         
     def add_unit(self, unit):
         self.units.append(unit)

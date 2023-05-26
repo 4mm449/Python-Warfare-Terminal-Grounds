@@ -1,3 +1,12 @@
+# -----------------------------------------------------------------------------
+# Title: Python Warfare : Terminal Grounds
+# Authors: Group 1: Ammaar, Abdullah, Thaha, Santosh, Fadly, Anh 
+# Date: 01/05/2023
+# Link to Git repository: https://github.com/4mm449/battle_royale
+# -----------------------------------------------------------------------------
+
+
+
 import character
 import random
 import os
@@ -123,25 +132,63 @@ AI Unit {i + 1}:
             
             print(f"\nIt's {player_name}'s turn to attack")
             log(f"\nIt's {player_name}'s turn to attack", out)
+            # print(f"{player_name} has {player.coins} coins")
             # display_stats(player.units, ai.units)
             
             stats_check = True
+            # while stats_check:
+            #     # attacker = input(f"Enter unit that you wish to send for an attack [1-{len(player.units)}]  type U or to check unit stats or type S to access : ")
+            #     attacker = input(f"Options: \nEnter unit that you wish to send for an attack [1-{len(player.units)}]\nDisplay (U)nits [U]\nAccess the (P)ystore [P]\nPlease choose one of the options [1-{len(player.units)}], U or P: ")
+            #     log(f"Enter unit that you wish to send for an attack [1-{len(player.units)}] or type U to check unit stats: ", out)
+            #     log(attacker, inp)
+
+            #     if attacker.upper() == "U":
+            #         # Display game stats
+            #         display_stats(player.units, ai.units)
+            #         attacker = input(f"Enter unit that you wish to send for an attack [1-{len(player.units)}]: ")
+            #         log(f"Enter unit that you wish to send for an attack [1-{len(player.units)}]: ", out)
+            #         log(attacker, inp)
+            #     elif attacker.upper() == "P":
+            #         coin_store(player)
+                    
+            #     if attacker.isdigit() and int(attacker) in range(1, 4):
+            #         stats_check = False
+            #     else:
+            #         print(f"[-] ERROR. Invalid input. Please enter a valid option [1-{len(player.units)}], U or P]")
+
+            # stats_check = True
+            # while stats_check:
+            #     victim = input(f"Enter AI unit that you wish to attack [1-{len(ai.units)}]: ")
+            #     log(f"Enter AI unit that you wish to attack [1-{len(ai.units)}]: ", out)
+            #     log(victim, inp)
+
+            #     if victim.isdigit() and int(victim) in range(1, 4):
+            #         stats_check = False
+            #     else:
+            #         print(f"[-] ERROR. Invalid input. Please enter a valid option [1-{len(ai.units)}]")
+            #         log(f"[-] ERROR. Invalid input. Please enter a valid option [1-{len(player.units)}]", out)
             while stats_check:
-                attacker = input(f"Enter unit that you wish to send for an attack [1-{len(player.units)}] or type U to check unit stats: ")
+                attacker = input("Options:\n"
+                                f"Enter unit that you wish to send for an attack [1-{len(player.units)}]\n"
+                                "Display (U)nits [U]\n"
+                                "Access the (P)ystore [P]\n"
+                                f"Please choose one of the options [1-{len(player.units)}], U or P: ")
                 log(f"Enter unit that you wish to send for an attack [1-{len(player.units)}] or type U to check unit stats: ", out)
                 log(attacker, inp)
 
                 if attacker.upper() == "U":
                     # Display game stats
                     display_stats(player.units, ai.units)
-                    attacker = input(f"Enter unit that you wish to send for an attack [1-{len(player.units)}]: ")
-                    log(f"Enter unit that you wish to send for an attack [1-{len(player.units)}]: ", out)
-                    log(attacker, inp)
-                    
-                if attacker.isdigit() and int(attacker) in range(1, 4):
+                    continue  # Restart the loop to prompt for input again
+
+                if attacker.upper() == "P":
+                    coin_store(player)
+                    continue  # Restart the loop to prompt for input again
+
+                if attacker.isdigit() and int(attacker) in range(1, len(player.units) + 1):
                     stats_check = False
                 else:
-                    print(f"[-] ERROR. Invalid input. Please enter a valid option [1-{len(player.units)}] or U]")
+                    print(f"[-] ERROR. Invalid input. Please enter a valid option [1-{len(player.units)}], U or P]")
 
             stats_check = True
             while stats_check:
@@ -149,12 +196,12 @@ AI Unit {i + 1}:
                 log(f"Enter AI unit that you wish to attack [1-{len(ai.units)}]: ", out)
                 log(victim, inp)
 
-                if victim.isdigit() and int(victim) in range(1, 4):
+                if victim.isdigit() and int(victim) in range(1, len(ai.units) + 1):
                     stats_check = False
                 else:
                     print(f"[-] ERROR. Invalid input. Please enter a valid option [1-{len(ai.units)}]")
-                    log(f"[-] ERROR. Invalid input. Please enter a valid option [1-{len(player.units)}]", out)
-                    
+                    log(f"[-] ERROR. Invalid input. Please enter a valid option [1-{len(ai.units)}]", out)
+
             attacker = int(attacker) - 1
             victim = int(victim) - 1
             try:
@@ -166,8 +213,11 @@ AI Unit {i + 1}:
                     # victim_unit = ai.units[victim]
                     # victim_HP = int(victim_unit["HP"])
                     
-                    attackerhp = progress_bar(player.units[attacker].attrib["HP"])
-                    victimhp = progress_bar(ai.units[victim].attrib["HP"])
+                    attackerhp = progress_bar(player.units[attacker].attrib["HP"], "HP")
+                    victimhp = progress_bar(ai.units[victim].attrib["HP"], "HP")
+                    coins_indication = progress_bar(player.coins, "Pycoins")
+                    print("\n")
+                    print(coins_indication)
                     print(f'''
 ----------------------------------
  Player Unit {attacker + 1}: {attackerhp}
@@ -184,6 +234,7 @@ AI Unit {i + 1}:
 {player.units[attacker]}
 ----------------------------------
 ''', out)
+                    coinsl(player)
 
 #                     print(f'''
 # ---------------------------
@@ -201,6 +252,9 @@ AI Unit {i + 1}:
 # {ai.units[victim]}
 # ---------------------------
 # ''')
+                    coins_indication = progress_bar(ai.coins, "Pycoins")
+                    print("\n")
+                    print(coins_indication)
                     print(f'''
 ----------------------------------
  AI Unit {victim + 1}:     {victimhp}
@@ -251,6 +305,8 @@ AI Unit {i + 1}:
                 attacker = random.choice(ai.units)
                 victim = random.choice(player.units)
                 attack(attacker, victim)
+                coinsl(ai)
+                
                 try_again = True
                 
                     
@@ -266,8 +322,13 @@ AI Unit {i + 1}:
                 attacker = max(ai.units, key=lambda unit: unit.attrib["ATK"])
                 victim = min(player.units, key=lambda unit: unit.attrib["DEF"])
                 attack(attacker, victim)
+                coinsl(ai)
         
                 try_again = True
+                
+        if ai.coins >= 50:
+            coin_store(ai)
+            
 
         
             
@@ -314,6 +375,8 @@ def attack(attacker, victim):
     # Calculate damage
     randomatkpt = random.randint(-5, 10)
     damage = attacker.attrib["ATK"] - victim.attrib["DEF"] + randomatkpt
+    # coins   
+    
     # if attacker.attrib["ATK"] < victim.attrib["DEF"] and randomatkpt < 0:
     #     damage = attacker.attrib["ATK"] - victim.attrib["DEF"] - randomatkpt
     victim.attrib["HP"] -= damage
@@ -457,6 +520,13 @@ def attack(attacker, victim):
 
 print("\n-----------------------------------\n")
 
+def coinsl(attacker):
+    if damage > 0:
+        coins = 2 * damage
+        attacker.coins += coins
+    if attacker.coins == 200:
+        coins = 200
+
 # check if all units are dead and check if the game is done
 def is_game_over(player_units, ai_units):
     if all(unit.attrib["HP"] <= 0 for unit in player_units):
@@ -478,9 +548,12 @@ def is_game_over(player_units, ai_units):
 # display all units on command
 def display_stats(player_units, ai_units):
     print("\n---------- Player Units ----------")
+    coins_indication = progress_bar(player.coins, "Pycoins")
+    print("\n")
+    print(coins_indication)
     log("\n---------- Player Units ----------", out)
     for i, unit in enumerate(player_units):
-        playerhp = progress_bar(unit.attrib["HP"])
+        playerhp = progress_bar(unit.attrib["HP"], "HP")
         # print(f"{i+1}. {unit}: HP={unit.attrib['HP']} ATK={unit.attrib['ATK']} DEF={unit.attrib['DEF']}")
         
         print(f'''
@@ -501,10 +574,13 @@ Player Unit {i+1}: {playerhp}
         # print(f"Player Unit {i+1}:\n {unit}")
         # print("--------------------------\n")
     print("\n------------ AI Units ------------")
+    coins_indication = progress_bar(ai.coins, "Pycoins")
+    print("\n")
+    print(coins_indication)
     log("\n------------ AI Units ------------", out)
     for i, unit in enumerate(ai_units):
         # print(f"{i+1}. {unit}: HP={unit.attrib['HP']} ATK={unit.attrib['ATK']} DEF={unit.attrib['DEF']}")
-        aihp = progress_bar(unit.attrib["HP"])
+        aihp = progress_bar(unit.attrib["HP"], "HP")
         print(f'''
 ----------------------------------
 AI Unit {i+1}:     {aihp}
@@ -559,43 +635,174 @@ def log(event, inpout):
         elif inpout == 'out':
             file.write(f"{event}\n")
         # file.write(f"Details: {details}\n")
-        # file.write("--------------------\n")       
+        # file.write("--------------------\n")   
+            
+def coin_store(visitor):
+    if visitor == player:
+        print("\nWelcome to the PyStore!")
+        print(f"You have {visitor.coins} Pycoins.")
+        print("------------------------")
+        print("1. Buy Health Potion (100 Pycoins)")
+        print("2. Buy Attack Boost (50 Pycoins)")
+        print("3. Buy Defense Boost (50 Pycoins)")
+        print("4. Exit Store")
+        choice = input("Enter your choice [1-4]: ")
+    else:
+        if visitor.coins > 50 and visitor.coins < 100:
+            choice = str(random.randint(2, 3))
+        else:
+            choice = str(random.randint(1, 3))
+    if choice == "1":
+        if visitor.coins >= 100:
+            visitor.coins -= 100
+            for unit in visitor.units:
+                unit.attrib["HP"] += 20
+                unit.attrib["HP"] = min(unit.attrib["HP"], 100)
+            if visitor == player:
+                print("\nYou bought a Health Potion. All Player units' HP increased by 20.")
+            else:
+                print("\nAI bought a Health Potion from the Pystore. All AI units' HP increased by 20.")
+        else:
+            print("\nInsufficient Pycoins.")
+    elif choice == "2":
+        if visitor.coins >= 50:
+            visitor.coins -= 50
+            for unit in visitor.units:
+                unit.attrib["ATK"] += 2
+            if visitor == player:
+                print("\nYou bought an Attack Boost. All Player units' ATK increased by 2.")
+            else:
+                print("\nAI bought an Attack Boost from the Pystore. All AI units' ATK increased by 2.")
+        else:
+            print("\nInsufficient Pycoins.")
+    elif choice == "3":
+        if visitor.coins >= 50:
+            visitor.coins -= 50
+            for unit in visitor.units:
+                unit.attrib["DEF"] += 2
+            if visitor in player.units:
+                print("\nYou bought a Defense Boost. All PLayer units' DEF increased by 2.")
+            else:
+                print("\nAI bought a Defense Boost from the Pystore. All AI units' DEF increased by 2.")
+        
+        else:
+            print("\nInsufficient Pycoins.")
+    elif choice == "4":
+        print("\nExiting store...\n")
+        return
+    else:
+        print("\nInvalid choice.")
+    if visitor == player:
+        print(f"\nYou have {visitor.coins} Pycoins remaining\n")
+    else:
+        print(f"\nAI has {ai.coins} Pycoins remaining\n")
+
 
 # progress bar elements for HP and others    
-def progress_bar(value):
-    zerototen = f'''█▒▒▒▒▒▒▒▒▒ {value} HP'''
-    tentotwenty = f'''██▒▒▒▒▒▒▒▒ {value} HP'''
-    twentytothirty = f'''███▒▒▒▒▒▒▒ {value} HP'''
-    thirtytoforty = f'''████▒▒▒▒▒▒ {value} HP'''
-    fortytofifty = f'''█████▒▒▒▒▒ {value}'''
-    fiftytosixty = f'''██████▒▒▒▒ {value} HP'''
-    sixtytoseventy = f'''███████▒▒▒ {value} HP'''
-    seventytoeighty = f'''████████▒▒ {value} HP'''
-    eightytoninety = f'''█████████▒ {value} HP'''
-    ninetytohundred = f'''██████████ {value} HP'''
-
-    if value > 0 and value <= 10:
-        return zerototen
-    elif value > 10 and value <= 20:
-        return tentotwenty
-    elif value > 20 and value <= 30:
-        return twentytothirty
-    elif value > 30 and value <= 40:
-        return thirtytoforty
-    elif value > 40 and value <= 50:
-        return fortytofifty
-    elif value > 50 and value <= 60:
-        return fiftytosixty
-    elif value > 60 and value <= 70:
-        return sixtytoseventy
-    elif value > 70 and value <= 80:
-        return seventytoeighty
-    elif value > 80 and value <= 95:
-        return eightytoninety
-    elif value > 95 and value <= 100:
-        return ninetytohundred
-    else:
-        return "Invalid Value"
+def progress_bar(value, field):
+    zero = f'''▒▒▒▒▒▒▒▒▒▒ {value} {field}'''
+    onetoten = f'''█▒▒▒▒▒▒▒▒▒ {value} {field}'''
+    tentotwenty = f'''██▒▒▒▒▒▒▒▒ {value} {field}'''
+    twentytothirty = f'''███▒▒▒▒▒▒▒ {value} {field}'''
+    thirtytoforty = f'''████▒▒▒▒▒▒ {value} {field}'''
+    fortytofifty = f'''█████▒▒▒▒▒ {value} {field}'''
+    fiftytosixty = f'''██████▒▒▒▒ {value} {field}'''
+    sixtytoseventy = f'''███████▒▒▒ {value} {field}'''
+    seventytoeighty = f'''████████▒▒ {value} {field}'''
+    eightytoninety = f'''█████████▒ {value} {field}'''
+    ninetytohundred = f'''██████████ {value} {field}'''
+    
+    zeroc = f'''▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒ {value} {field}'''
+    onetotenc = f'''█▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒ {value} {field}'''
+    tentotwentyc = f'''██▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒ {value} {field}'''
+    twentytothirtyc = f'''███▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒ {value} {field}'''
+    thirtytofortyc = f'''████▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒ {value} {field}'''
+    fortytofiftyc = f'''█████▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒ {value} {field}'''
+    fiftytosixtyc = f'''██████▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒ {value} {field}'''
+    sixtytoseventyc = f'''███████▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒ {value} {field}'''
+    seventytoeightyc = f'''████████▒▒▒▒▒▒▒▒▒▒▒▒▒▒ {value} {field}'''
+    eightytoninetyc = f'''█████████▒▒▒▒▒▒▒▒▒▒▒▒▒ {value} {field}'''
+    ninetytohundredc = f'''██████████▒▒▒▒▒▒▒▒▒▒▒▒ {value} {field}'''
+    hundredtohuntenc = f'''██████████▒▒▒▒▒▒▒▒▒▒▒▒ {value} {field}'''
+    huntentohuntwenc = f'''██████████▒▒▒▒▒▒▒▒▒▒▒▒ {value} {field}'''
+    huntwentohunthirc = f'''██████████▒▒▒▒▒▒▒▒▒▒▒▒ {value} {field}'''
+    hunthirtohunfortc = f'''██████████▒▒▒▒▒▒▒▒▒▒▒▒ {value} {field}'''
+    hunforttohunfiftc = f'''██████████▒▒▒▒▒▒▒▒▒▒▒▒ {value} {field}'''
+    hunfifttohunsixc = f'''██████████▒▒▒▒▒▒▒▒▒▒▒▒ {value} {field}'''
+    hunsixtohunsevenc = f'''██████████▒▒▒▒▒▒▒▒▒▒▒▒ {value} {field}'''
+    hunseventohuneightc = f'''██████████▒▒▒▒▒▒▒▒▒▒▒▒ {value} {field}'''
+    huneighttohunninec = f'''██████████▒▒▒▒▒▒▒▒▒▒▒▒ {value} {field}'''
+    hunninetotwohundredc = f'''████████████████████ {value} {field}'''
+    if field == 'HP':
+        if value == 0:
+            return zero
+        elif value > 0 and value <= 10:
+            return onetoten
+        elif value > 10 and value <= 20:
+            return tentotwenty
+        elif value > 20 and value <= 30:
+            return twentytothirty
+        elif value > 30 and value <= 40:
+            return thirtytoforty
+        elif value > 40 and value <= 50:
+            return fortytofifty
+        elif value > 50 and value <= 60:
+            return fiftytosixty
+        elif value > 60 and value <= 70:
+            return sixtytoseventy
+        elif value > 70 and value <= 80:
+            return seventytoeighty
+        elif value > 80 and value <= 95:
+            return eightytoninety
+        elif value > 95 and value <= 100:
+            return ninetytohundred
+        else:
+            return "Invalid Value"
+    elif field == 'Pycoins':
+        if value == 0:
+            return zeroc
+        elif value > 0 and value <= 10:
+            return onetotenc
+        elif value > 10 and value <= 20:
+            return tentotwentyc
+        elif value > 20 and value <= 30:
+            return twentytothirtyc
+        elif value > 30 and value <= 40:
+            return thirtytofortyc
+        elif value > 40 and value <= 50:
+            return fortytofiftyc
+        elif value > 50 and value <= 60:
+            return fiftytosixtyc
+        elif value > 60 and value <= 70:
+            return sixtytoseventyc
+        elif value > 70 and value <= 80:
+            return seventytoeightyc
+        elif value > 80 and value <= 95:
+            return eightytoninetyc
+        elif value > 95 and value <= 100:
+            return ninetytohundredc
+        elif value > 100 and value <= 110:
+            return hundredtohuntenc
+        elif value > 110 and value <= 120:
+            return huntentohuntwenc
+        elif value > 120 and value <= 130:
+            return huntwentohunthirc
+        elif value > 130 and value <= 140:
+            return hunthirtohunfortc
+        elif value > 140 and value <= 150:
+            return hunforttohunfiftc
+        elif value > 150 and value <= 160:
+            return hunfifttohunsixc
+        elif value > 160 and value <= 170:
+            return hunsixtohunsevenc
+        elif value > 170 and value <= 180:
+            return hunseventohuneightc
+        elif value > 180 and value <= 195:
+            return huneighttohunninec
+        elif value > 195 and value <= 200:
+            return hunninetotwohundredc
+        else:
+            return "Invalid Value"
 
 # game introduction
 def game_intro():
@@ -683,9 +890,7 @@ def game_intro():
                 mode_check = True
         except:
             mode = print("[-] ERROR. No value specified. Please enter P or N to continue")
-            
 
-    # return init2, init3, init4, init5, init6
 
 
 
