@@ -168,10 +168,10 @@ AI Unit {i + 1}:
             #         print(f"[-] ERROR. Invalid input. Please enter a valid option [1-{len(ai.units)}]")
             #         log(f"[-] ERROR. Invalid input. Please enter a valid option [1-{len(player.units)}]", out)
             while stats_check:
-                attacker = input("Options:\n"
-                                f"Enter unit that you wish to send for an attack [1-{len(player.units)}]\n"
-                                "Display (U)nits [U]\n"
-                                "Access the (P)ystore [P]\n"
+                attacker = input("\nOptions:\n"
+                                f"• Enter unit that you wish to send for an attack [1-{len(player.units)}]\n"
+                                "• Display (U)nits [U]\n"
+                                "• Access the (P)ystore [P]\n"
                                 f"Please choose one of the options [1-{len(player.units)}], U or P: ")
                 log(f"Enter unit that you wish to send for an attack [1-{len(player.units)}] or type U to check unit stats: ", out)
                 log(attacker, inp)
@@ -188,7 +188,7 @@ AI Unit {i + 1}:
                 if attacker.isdigit() and int(attacker) in range(1, len(player.units) + 1):
                     stats_check = False
                 else:
-                    print(f"[-] ERROR. Invalid input. Please enter a valid option [1-{len(player.units)}], U or P]")
+                    print(f"\n[-] ERROR. Invalid input. Please enter a valid option [1-{len(player.units)}], U or P]")
 
             stats_check = True
             while stats_check:
@@ -199,8 +199,8 @@ AI Unit {i + 1}:
                 if victim.isdigit() and int(victim) in range(1, len(ai.units) + 1):
                     stats_check = False
                 else:
-                    print(f"[-] ERROR. Invalid input. Please enter a valid option [1-{len(ai.units)}]")
-                    log(f"[-] ERROR. Invalid input. Please enter a valid option [1-{len(ai.units)}]", out)
+                    print(f"\n[-] ERROR. Invalid input. Please enter a valid option [1-{len(ai.units)}]")
+                    log(f"\n[-] ERROR. Invalid input. Please enter a valid option [1-{len(ai.units)}]", out)
 
             attacker = int(attacker) - 1
             victim = int(victim) - 1
@@ -295,7 +295,7 @@ AI Unit {i + 1}:
         
             
         # elif:
-        # AI chooses to attack 
+        # AI chooses to attack  
         if mode[0].upper() == 'N':
             if len(ai.units) > 0:
                 input("It's AI's turn to attack. Press return (enter) to continue...")
@@ -336,10 +336,7 @@ AI Unit {i + 1}:
         
 
 
-               
 
-            # rounds += 1
-            # try_again = True
         game_over = is_game_over(player.units, ai.units)
         file.close()
 
@@ -518,14 +515,14 @@ def attack(attacker, victim):
         
 
 
-print("\n-----------------------------------\n")
+    print("\n-----------------------------------\n")
 
 def coinsl(attacker):
     if damage > 0:
         coins = 2 * damage
         attacker.coins += coins
-    if attacker.coins == 200:
-        coins = 200
+        if attacker.coins > 200:
+            attacker.coins = 200
 
 # check if all units are dead and check if the game is done
 def is_game_over(player_units, ai_units):
@@ -601,6 +598,7 @@ AI Unit {i+1}:     {aihp}
 
     # print("\n-----------------------------------\n")
 
+
 # audio logic for different operating systems
 def opsystem(audio: str):
     if platform == "linux" or platform == "linux2":
@@ -653,40 +651,98 @@ def coin_store(visitor):
         else:
             choice = str(random.randint(1, 3))
     if choice == "1":
-        if visitor.coins >= 100:
-            visitor.coins -= 100
-            for unit in visitor.units:
-                unit.attrib["HP"] += 20
-                unit.attrib["HP"] = min(unit.attrib["HP"], 100)
-            if visitor == player:
-                print("\nYou bought a Health Potion. All Player units' HP increased by 20.")
-            else:
-                print("\nAI bought a Health Potion from the Pystore. All AI units' HP increased by 20.")
+        if visitor.coins >= 100 and visitor == player:
+            valid = False
+            while valid == False:
+                chosen_unit = input(f"Which unit do you want to use the Health Potion on [1-{len(player.units)}]: ")
+                if chosen_unit.isdigit() and 1 <= int(chosen_unit) <= len(player.units):
+                    chosen_unit_index = int(chosen_unit) - 1
+                    visitor.units[chosen_unit_index].attrib["HP"] += 20
+                    visitor.units[chosen_unit_index].attrib["HP"] = min(player.units[chosen_unit_index].attrib["HP"], 100)
+                    visitor.coins -= 100
+                    valid = True
+                else:
+                    print(f"\n[-] ERROR. Please choose a valid unit in the range 1-{len(player.units)}\n")
+                    if not chosen_unit:
+                        print("[-] ERROR. No input provided. Please enter a valid unit number.\n")
+            print("\nYou bought a Health Potion. All Player units' HP increased by 20.")
+        elif visitor == ai:
+            choice = int(random.randint(1, len(ai.units)))
+            visitor.units[choice - 1].attrib["HP"] += 20
+            visitor.units[choice - 1].attrib["HP"] = min(ai.units[choice - 1]   .attrib["HP"], 100)
+            ai.coins -= 100
+            print(f"AI chose to increase HP of unit {choice} by 20")
         else:
             print("\nInsufficient Pycoins.")
     elif choice == "2":
-        if visitor.coins >= 50:
+        if visitor.coins >= 50 and visitor == player:
+            valid = False
+            while valid == False:
+                chosen_unit = input(f"Which unit do you want to use the Attack Boost on [1-{len(player.units)}]: ")
+                if chosen_unit.isdigit() and 1 <= int(chosen_unit) <= len(player.units):
+                    chosen_unit_index = int(chosen_unit) - 1
+                    visitor.units[chosen_unit_index].attrib["ATK"] += 2
+                    visitor.coins -= 50
+                    # visitor.units[chosen_unit_index].attrib["ATK"] = min(player.units[chosen_unit_index].attrib["ATK"], 100)
+                    valid = True
+                else:
+                    print(f"\n[-] ERROR. Please choose a valid unit in the range 1-{len(player.units)}\n")
+                    if not chosen_unit:
+                        print("[-] ERROR. No input provided. Please enter a valid unit number.\n")
+            print(f"\nYou bought an Attack Boost. Attack Points of Player Unit {chosen_unit} has been upgraded by 2")
+        elif visitor == ai:
+            choice = int(random.randint(1, len(ai.units)))
+            visitor.units[choice - 1].attrib["ATK"] += 2
             visitor.coins -= 50
-            for unit in visitor.units:
-                unit.attrib["ATK"] += 2
-            if visitor == player:
-                print("\nYou bought an Attack Boost. All Player units' ATK increased by 2.")
-            else:
-                print("\nAI bought an Attack Boost from the Pystore. All AI units' ATK increased by 2.")
+            print(f"AI chose to increase Attack of unit {choice} by 2")
         else:
             print("\nInsufficient Pycoins.")
+    
+    # elif choice == "2":
+    #     if visitor.coins >= 50:
+    #         visitor.coins -= 50
+    #         for unit in visitor.units:
+    #             unit.attrib["ATK"] += 2
+    #         if visitor == player:
+    #             print("\nYou bought an Attack Boost. All Player units' ATK increased by 2.")
+    #         else:
+    #             print("\nAI bought an Attack Boost from the Pystore. All AI units' ATK increased by 2.")
+    #     else:
+    #         print("\nInsufficient Pycoins.")
+    # elif choice == "3":
+    #     if visitor.coins >= 50:
+    #         visitor.coins -= 50
+    #         for unit in visitor.units:
+    #             unit.attrib["DEF"] += 2
+    #         if visitor in player.units:
+    #             print("\nYou bought a Defense Boost. All PLayer units' DEF increased by 2.")
+    #         else:
+    #             print("\nAI bought a Defense Boost from the Pystore. All AI units' DEF increased by 2.")
     elif choice == "3":
-        if visitor.coins >= 50:
+        if visitor.coins >= 50 and visitor == player:
+            valid = False
+            while valid == False:
+                chosen_unit = input(f"Which unit do you want to use the Defense Boost on [1-{len(player.units)}]: ")
+                if chosen_unit.isdigit() and 1 <= int(chosen_unit) <= len(player.units):
+                    chosen_unit_index = int(chosen_unit) - 1
+                    visitor.units[chosen_unit_index].attrib["DEF"] += 2
+                    visitor.coins -= 50
+                    # visitor.units[chosen_unit_index].attrib["ATK"] = min(player.units[chosen_unit_index].attrib["ATK"], 100)
+                    valid = True
+                else:
+                    print(f"\n[-] ERROR. Please choose a valid unit in the range 1-{len(player.units)}\n")
+                    if not chosen_unit:
+                        print("[-] ERROR. No input provided. Please enter a valid unit number.\n")
+            print(f"\nYou bought a Defense Boost. Defense Points of Player Unit {chosen_unit} has been upgraded by 2")
+        elif visitor == ai:
+            choice = int(random.randint(1, len(ai.units)))
+            visitor.units[choice - 1].attrib["DEF"] += 2
             visitor.coins -= 50
-            for unit in visitor.units:
-                unit.attrib["DEF"] += 2
-            if visitor in player.units:
-                print("\nYou bought a Defense Boost. All PLayer units' DEF increased by 2.")
-            else:
-                print("\nAI bought a Defense Boost from the Pystore. All AI units' DEF increased by 2.")
-        
+            print(f"AI chose to increase Defense of unit {choice} by 2")
         else:
             print("\nInsufficient Pycoins.")
+        # else:
+        #     print("\nInsufficient Pycoins.")
     elif choice == "4":
         print("\nExiting store...\n")
         return
@@ -723,15 +779,15 @@ def progress_bar(value, field):
     seventytoeightyc = f'''████████▒▒▒▒▒▒▒▒▒▒▒▒▒▒ {value} {field}'''
     eightytoninetyc = f'''█████████▒▒▒▒▒▒▒▒▒▒▒▒▒ {value} {field}'''
     ninetytohundredc = f'''██████████▒▒▒▒▒▒▒▒▒▒▒▒ {value} {field}'''
-    hundredtohuntenc = f'''██████████▒▒▒▒▒▒▒▒▒▒▒▒ {value} {field}'''
-    huntentohuntwenc = f'''██████████▒▒▒▒▒▒▒▒▒▒▒▒ {value} {field}'''
-    huntwentohunthirc = f'''██████████▒▒▒▒▒▒▒▒▒▒▒▒ {value} {field}'''
-    hunthirtohunfortc = f'''██████████▒▒▒▒▒▒▒▒▒▒▒▒ {value} {field}'''
-    hunforttohunfiftc = f'''██████████▒▒▒▒▒▒▒▒▒▒▒▒ {value} {field}'''
-    hunfifttohunsixc = f'''██████████▒▒▒▒▒▒▒▒▒▒▒▒ {value} {field}'''
-    hunsixtohunsevenc = f'''██████████▒▒▒▒▒▒▒▒▒▒▒▒ {value} {field}'''
-    hunseventohuneightc = f'''██████████▒▒▒▒▒▒▒▒▒▒▒▒ {value} {field}'''
-    huneighttohunninec = f'''██████████▒▒▒▒▒▒▒▒▒▒▒▒ {value} {field}'''
+    hundredtohuntenc = f'''███████████▒▒▒▒▒▒▒▒▒▒▒ {value} {field}'''
+    huntentohuntwenc = f'''████████████▒▒▒▒▒▒▒▒▒▒ {value} {field}'''
+    huntwentohunthirc = f'''█████████████▒▒▒▒▒▒▒▒▒ {value} {field}'''
+    hunthirtohunfortc = f'''██████████████▒▒▒▒▒▒▒▒ {value} {field}'''
+    hunforttohunfiftc = f'''███████████████▒▒▒▒▒▒▒ {value} {field}'''
+    hunfifttohunsixc = f'''████████████████▒▒▒▒▒▒ {value} {field}'''
+    hunsixtohunsevenc = f'''█████████████████▒▒▒▒▒ {value} {field}'''
+    hunseventohuneightc = f'''██████████████████▒▒▒▒ {value} {field}'''
+    huneighttohunninec = f'''███████████████████▒▒▒ {value} {field}'''
     hunninetotwohundredc = f'''████████████████████ {value} {field}'''
     if field == 'HP':
         if value == 0:
@@ -802,7 +858,7 @@ def progress_bar(value, field):
         elif value > 195 and value <= 200:
             return hunninetotwohundredc
         else:
-            return "Invalid Value"
+            return value, field 
 
 # game introduction
 def game_intro():
