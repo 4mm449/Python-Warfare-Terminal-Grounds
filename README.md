@@ -57,7 +57,7 @@ The game will install the required modules and libraries automatically. However,
 
 `pip install -r requirements.txt`
 
-Make sure you have pip installed and configured in your Python environment before running the above command. This will install all the necessary packages listed in the requirements.txt file.
+Make sure you have pip installed and configured in your Python environment before running the above command. This will install all the necessary packages listed in the `requirements.txt` file.
 
 Please note that depending on your system configuration, you may need to use pip3 instead of pip to ensure the installation is associated with the correct Python version.
 
