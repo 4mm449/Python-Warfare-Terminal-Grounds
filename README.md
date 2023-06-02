@@ -80,7 +80,7 @@ Enjoy playing the game and have fun!
 Thank you for your interest in contributing to this project! Contributions from the community are highly appreciated. You can contribute to the project in the following ways:
 
 ### Bug Reports and Feature Requests
-If you encounter any bugs while using the game or have any ideas for new features, please submit a detailed bug report or feature request. You can do this by opening an issue in the project's issue tracker. When submitting a bug report or feature request, please provide as much information as possible, including steps to reproduce the issue or a clear description of the requested feature.
+If you encounter any bugs while using the game or have any ideas for new features, please submit a detailed bug report or feature request. You can do this by opening an issue in the project's [issue tracker.](https://github.com/4mm449/Python-Warfare-Terminal-Grounds/issues) When submitting a bug report or feature request, please provide as much information as possible, including steps to reproduce the issue or a clear description of the requested feature.
 
 ### Pull Requests
 If you would like to contribute code to the project, you can do so by submitting a pull request. Before submitting a pull request, please ensure that your code adheres to the project's coding style and conventions. It's also a good idea to discuss your proposed changes or new features with the project maintainers beforehand to ensure they align with the project's goals.
