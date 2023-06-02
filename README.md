@@ -38,7 +38,8 @@ Graphical illustration of the health and Pycoin status.
 #### Team strength algorithm:
 
 Calculates the strength of each team based on various parameters.
-Team stats displayed upon command:
+
+#### Team stats displayed upon command:
 
 Provides detailed statistics of the teams.
 
