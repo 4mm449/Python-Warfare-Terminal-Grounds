@@ -1,6 +1,6 @@
 # Python Warfare : Terminal Grounds
 
-Python Warfare: Terminal Grounds is a lightweight and enjoyable turn-based battle game written entirely in Python. With a focus on simplicity and fun, this game runs directly in your terminal, allowing you to dive into the action with ease. Choose from three exciting play modes, Novice, Intermediate, and Pro, each offering a unique challenge level.
+Python Warfare: Terminal Grounds is a lightweight and enjoyable turn-based battle game written entirely in Python. With a focus on simplicity and fun, this game runs directly in your terminal, allowing you to dive into action with ease. Choose from three exciting play modes, Novice, Intermediate, and Pro, each offering a unique challenge level.
 
 ## Table of Contents
 - [Features](#features)
