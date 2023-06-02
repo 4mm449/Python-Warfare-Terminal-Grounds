@@ -49,7 +49,8 @@ Saves all game logs into a timestamped text file.
 #### Unit promotion:
 
 Upon promotion, units have the option to increase Attack or Defense points.
-Save game status and continue at a different time (work in progress).
+
+#### Save game status and continue at a different time (work in progress).
 
 ## Installation
 
