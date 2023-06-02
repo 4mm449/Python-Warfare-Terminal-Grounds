@@ -12,7 +12,14 @@ import random
 import os
 from sys import platform
 import datetime
-from tabulate import tabulate
+try:
+  from tabulate import tabulate
+except ImportError:
+  print("Trying to Install required module: tabulate\n")
+  os.system('python -m pip install tabulate')
+# above lines try to install tabulate module if not present
+# if all went well, import required module again (for global access)
+# from tabulate import tabulate
 
 # to check and import winsound module so that program doesnt crash on mac and linux
 if platform == "win32":
