@@ -14,7 +14,7 @@ Python Warfare: Terminal Grounds is a lightweight and enjoyable turn-based battl
 ### Some notable features include, but is not limited to:
 #### Multi-platform Sound effects:
 
-Sound effects when the game starts, units are attacked, killed, promoted, and when the game is over.
+Sound effects when the game starts, units are attacked, killed, promoted, and when the game is over. It works on macOS, Windows and Linux
 
 #### Multiple play modes:
 
