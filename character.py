@@ -1,3 +1,10 @@
+# -------------------------------------------------------------------------------------
+# Title: Python Warfare : Terminal Grounds
+# Authors: Group 1: Ammaar, Abdullah, Thaha, Santosh, Fadly, Anh 
+# Date: 01/05/2023
+# Link to Git repository: https://github.com/4mm449/Python-Warfare-Terminal-Grounds
+# -------------------------------------------------------------------------------------
+
 import random
 class Character:
     def __init__(self, name, profession, unit):
@@ -12,7 +19,6 @@ class Character:
             "Rank": "Bronze",
         }
         self.unit = unit
-        # self.coins = 0
      # player chooses warrior
         if profession == 'W':
             self.setup_warrior()
@@ -43,23 +49,6 @@ class Character:
 (7) Rank: {Rank}
 ''' .format(**self.attrib)
 
-#     def __str__(self):
-# #         return '''
-# :---------------------------------------------------------------------:
-# | Unit Name     Profession    HP    ATK    DEF    EXP    Rank         |
-# :---------------------------------------------------------------------:
-# | {Name:<6}    {Profession:^12}    {HP:^4}    {ATK:^5}    {DEF:^5}    {EXP:^5}    {Rank:^6} |
-# '---------------------------------------------------------------------'
-
-# ''' .format(**self.attrib)
-#         def __str__(self):
-#             return '''
-# .--------.--------------.------.-------.-------.-------.--------.
-# |  Name  |  Profession  |  HP  |  ATK  |  DEF  |  EXP  |  Rank  |
-# :--------+--------------+------+-------+-------+-------+--------:
-# | {Name} | {Profession} | {HP} | {ATK} | {DEF} | {EXP} | {Rank} |
-# '--------'--------------'------'-------'-------'-------'--------'
-# '''.format(**self.attrib)
 
 class Player:
     def __init__(self):

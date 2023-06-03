@@ -1,11 +1,9 @@
-# -----------------------------------------------------------------------------
+# -------------------------------------------------------------------------------------
 # Title: Python Warfare : Terminal Grounds
 # Authors: Group 1: Ammaar, Abdullah, Thaha, Santosh, Fadly, Anh 
 # Date: 01/05/2023
-# Link to Git repository: https://github.com/4mm449/battle_royale
-# -----------------------------------------------------------------------------
-
-
+# Link to Git repository: https://github.com/4mm449/Python-Warfare-Terminal-Grounds
+# -------------------------------------------------------------------------------------
 
 import character
 import random
@@ -18,8 +16,8 @@ except ImportError:
   print("Trying to Install required module: tabulate\n")
   os.system('python -m pip install tabulate')
 # above lines try to install tabulate module if not present
-# if all went well, import required module again (for global access)
-# from tabulate import tabulate
+# if all went well, import required module again
+
 
 # to check and import winsound module so that program doesnt crash on mac and linux
 if platform == "win32":
@@ -29,7 +27,7 @@ if platform == "win32":
         print("Trying to Install required module: tabulate\n")
         os.system('python -m pip install winsound')
 # above lines try to install winsound module if not present
-# if all went well, import required module again (for global access)
+# if all went well, import required module again
 
 
 # initialising all global variables
@@ -76,28 +74,11 @@ def main():
                     unit = character.Character(name, profession, i + 1)
                     log(profession, inp)
                     
-                    
-#                     print(f'''
-# ---------------------------
-# Player Unit {i + 1}:
-# ---------------------------
-# {unit}
-# ---------------------------
-#                     ''')
-#                     log(f'''
-# ---------------------------
-# Player Unit {i + 1}:
-# ---------------------------
-# {unit}
-# ---------------------------
-#                     ''', out)
                     print(f"\nPlayer Unit {i + 1}:")
                     player_table = []
                     player_table.append([
-                    # f"Player Unit {i+1}",
                     unit.attrib["Name"],
                     unit.attrib["Profession"],
-                    # progress_bar(unit.attrib["HP"], "HP"),
                     unit.attrib["HP"],
                     unit.attrib["ATK"],
                     unit.attrib["DEF"],
@@ -128,27 +109,11 @@ def main():
         log(f"AI chooses {profession}", out)
         unit = character.Character(name, profession, i + 1)
         ai.units.append(unit)
-#         print(f'''
-# # ---------------------------
-# # AI Unit {i + 1}:
-# # ---------------------------
-# # {unit}
-# # ---------------------------
-# #               ''')
-# #         log(f'''
-# # ---------------------------
-# # AI Unit {i + 1}:
-# # ---------------------------
-# # {unit}
-# # ---------------------------
-# #               ''', out)
         ai_table = []
         print(f"\nAI Unit {i + 1}:")
         ai_table.append([
-                    # f"AI Unit {i+1}",
                     unit.attrib["Name"],
                     unit.attrib["Profession"],
-                    # progress_bar(unit.attrib["HP"], "HP"),
                     unit.attrib["HP"],
                     unit.attrib["ATK"],
                     unit.attrib["DEF"],
@@ -157,63 +122,18 @@ def main():
                 ])
         print(tabulate(ai_table, headers=["Name", "Profession", "HP", "ATK", "DEF", "EXP", "Rank"], tablefmt="fancy_grid"))
         log(tabulate(ai_table, headers=["Name", "Profession", "HP", "ATK", "DEF", "EXP", "Rank"], tablefmt="fancy_grid"), out)
-# def display_stats(player_units, ai_units):
 
     try_again = True
     game_over = False
-    
+    # main game loop
     while game_over == False:
-        # if rounds % 2 == 1:
         while try_again:
-            # if rounds % 2 == 1:
-            #     print(f"It's {player_name}'s turn to attack")
-            #     display_stats(player.units, ai.units)
-            #     attacker = input("Enter unit that you wish to send for an attack [1-3]: ")
-            #     victim = input("Enter AI unit that you wish to attack [1-3]: ")
-            # else:
-            #     print("It's AI's turn to attack")
-            #     attacker = random.choice(ai.units)
-            #     victim = random.choice(player.units)
-    
-            
+            # players turn
             print(f"\nIt's {player_name}'s turn to attack")
             log(f"\nIt's {player_name}'s turn to attack", out)
-            # print(f"{player_name} has {player.coins} coins")
-            # display_stats(player.units, ai.units)
-            
             stats_check = True
-            # while stats_check:
-            #     # attacker = input(f"Enter unit that you wish to send for an attack [1-{len(player.units)}]  type U or to check unit stats or type S to access : ")
-            #     attacker = input(f"Options: \nEnter unit that you wish to send for an attack [1-{len(player.units)}]\nDisplay (U)nits [U]\nAccess the (P)ystore [P]\nPlease choose one of the options [1-{len(player.units)}], U or P: ")
-            #     log(f"Enter unit that you wish to send for an attack [1-{len(player.units)}] or type U to check unit stats: ", out)
-            #     log(attacker, inp)
-
-            #     if attacker.upper() == "U":
-            #         # Display game stats
-            #         display_stats(player.units, ai.units)
-            #         attacker = input(f"Enter unit that you wish to send for an attack [1-{len(player.units)}]: ")
-            #         log(f"Enter unit that you wish to send for an attack [1-{len(player.units)}]: ", out)
-            #         log(attacker, inp)
-            #     elif attacker.upper() == "P":
-            #         coin_store(player)
-                    
-            #     if attacker.isdigit() and int(attacker) in range(1, 4):
-            #         stats_check = False
-            #     else:
-            #         print(f"[-] ERROR. Invalid input. Please enter a valid option [1-{len(player.units)}], U or P]")
-
-            # stats_check = True
-            # while stats_check:
-            #     victim = input(f"Enter AI unit that you wish to attack [1-{len(ai.units)}]: ")
-            #     log(f"Enter AI unit that you wish to attack [1-{len(ai.units)}]: ", out)
-            #     log(victim, inp)
-
-            #     if victim.isdigit() and int(victim) in range(1, 4):
-            #         stats_check = False
-            #     else:
-            #         print(f"[-] ERROR. Invalid input. Please enter a valid option [1-{len(ai.units)}]")
-            #         log(f"[-] ERROR. Invalid input. Please enter a valid option [1-{len(player.units)}]", out)
             while stats_check:
+                # Pyrobot suggesstions for Novice mode
                 if mode[0].upper() == 'N':
                     # Determine the suggested unit to choose
                     suggested_unit = max(player.units, key=lambda unit: unit.attrib["ATK"])
@@ -226,6 +146,7 @@ def main():
                     log(f"\nPybot suggests you to attack with Player Unit {player.units.index(suggested_unit) + 1}", out)
                     print(f"Pybot suggests you to attack AI Unit {ai.units.index(suggested_target) + 1}\n")
                     log(f"Pybot suggests you to attack AI Unit {ai.units.index(suggested_target) + 1}\n", out)
+                # Player unit options
                 attacker = input("\nOptions:\n"
                                 f"• Enter unit that you wish to send for an attack [1-{len(player.units)}]\n"
                                 "• Display (U)nits [U]\n"
@@ -237,16 +158,17 @@ def main():
                                     "• Access the (P)ystore [P]\n"
                                     f"Please choose one of the options [1-{len(player.units)}], U or P: ", out)
                 log(attacker, inp)
-
+                # Player wants to check unit stats
                 if attacker.upper() == "U":
                     # Display game stats
                     display_stats(player.units, ai.units)
                     continue  # Restart the loop to prompt for input again
-
+                # player wants to access pystore      
                 if attacker.upper() == "P":
                     coin_store(player)
                     continue  # Restart the loop to prompt for input again
 
+                 # check for digit in the allowed range to continue attack   
                 if attacker.isdigit() and int(attacker) in range(1, len(player.units) + 1):
                     stats_check = False
                 else:
@@ -259,6 +181,7 @@ def main():
                 log(f"Enter AI unit that you wish to attack [1-{len(ai.units)}]: ", out)
                 log(victim, inp)
 
+                # check for digit in the allowed range to continue attack   
                 if victim.isdigit() and int(victim) in range(1, len(ai.units) + 1):
                     stats_check = False
                 else:
@@ -271,11 +194,7 @@ def main():
                 if attacker in range(len(player.units)) and victim in range(len(ai.units)):
                     try_again = False
                     attack(player.units[attacker], ai.units[victim])
-                    # attacker_unit = player.units[attacker]
-                    # attacker_HP = int(attacker_unit["HP"])
-                    # victim_unit = ai.units[victim]
-                    # victim_HP = int(victim_unit["HP"])
-                    
+                    # all the outputs
                     attackerhp = progress_bar(player.units[attacker].attrib["HP"], "HP")
                     victimhp = progress_bar(ai.units[victim].attrib["HP"], "HP")
                     coins_indication = progress_bar(player.coins, "Pycoins")
@@ -303,24 +222,10 @@ def main():
 {player.units[attacker]}
 ----------------------------------
 ''', out)
+                    # collect coins
                     coinsl(player)
-
-#                     print(f'''
-# ---------------------------
-# Player Unit {attacker + 1}:           
-# ---------------------------                     
-# {player.units[attacker]}
-
-# ---------------------------
-# ''')
-                
-#                     print(f'''
-# ----------------------------------
-# AI Unit {victim + 1}:            
-# ----------------------------------                     
-# {ai.units[victim]}
-# ---------------------------
-# ''')
+                    
+    
                     coins_indication = progress_bar(ai.coins, "Pycoins")
                     print("\n")
                     team_strength_value = team_strength(ai)
@@ -344,7 +249,6 @@ def main():
 ----------------------------------
 ''', out)
                 else:
-                    #  attacker = input("[-] ERROR. Invalid unit selection. Please try again. [-]")
                     print("[-] ERROR. Invalid unit selection. Please try again. [-]")
                     log("[-] ERROR. Invalid unit selection. Please try again. [-]", out)
                     log(attacker, inp)
@@ -354,19 +258,6 @@ def main():
                 pass
                
                 
-            # else:   
-            #     print('[-] ERROR. There is no unit {attacker} present. Please check all available units by entering "U"')
-            #     try_again = True
-                    # bonus_exp(victim)
-               
-            
-            # except ValueError:
-            #         print("[-] ERROR. Invalid input. Please enter a number. [-]")
-            # except IndexError:
-            #         print("[-] ERROR. The AI unit that you selected has already been defeated. Please enter another unit [-]")
-        
-            
-        # elif:
         # AI chooses to attack  
         if mode[0].upper() == 'N' or mode[0].upper() == 'I':
             if len(ai.units) > 0:
@@ -389,7 +280,6 @@ def main():
                 
                 # Determine the attacker
                 # Choose the target
-                # Execute the attack
                 # advanced AI algorithm
                 attacker = max(ai.units, key=lambda unit: unit.attrib["ATK"])
                 victim = min(player.units, key=lambda unit: unit.attrib["DEF"])
@@ -417,9 +307,9 @@ def main():
 def team_strength(team):
     total_strength = sum(unit.attrib["ATK"] + unit.attrib["DEF"] + unit.attrib["HP"] for unit in team.units)
     normalized_strength = total_strength / len(team.units)
-    team_strength = normalized_strength * 200 / 300  # Scale the strength to the range 1-200
-    team_strength = max(1, min(200, team_strength))  # Clamp the value between 1 and 200
-    return round(team_strength, 2)  # Return the team strength with 2 decimal places
+    team_strength = normalized_strength * 200 / 300  # lessen the range
+    team_strength = max(1, min(200, team_strength))  # 1 to 200
+    return round(team_strength, 2)  # team strength, 2 dp
 
 
 def bonus_exp(victim):
@@ -434,29 +324,13 @@ def bonus_exp(victim):
 # main battle logic
 def attack(attacker, victim):
     global damage
-
-# print(f"\n{attacker.attrib['Name']} is attacking {victim.attrib['Name']}")
-# damage = attacker.attrib["ATK"] - victim.attrib["DEF"]
-# if damage > 0:
-#     victim.attrib["HP"] -= damage
-#     print(f"{victim.attrib['Name']} received {damage} damage.")
-#     if victim.attrib["HP"] <= 0:
-#         print(f"{victim.attrib['Name']} has been defeated.")
-# else:
-#     print(f"The attack was ineffective. No damage was dealt.")
     print("\n-----------------------------------")
     print(f"\n{attacker.attrib['Name']} is attacking {victim.attrib['Name']}!\n")
     log(f"\n{attacker.attrib['Name']} is attacking {victim.attrib['Name']}!\n", out)
-    # damage = max(0, attacker.attrib["ATK"] - victim.attrib["DEF"])
     opsystem("audio/slash.wav")
-    # os.system("afplay slash.mp3&")
     # Calculate damage
     randomatkpt = random.randint(-5, 10)
     damage = attacker.attrib["ATK"] - victim.attrib["DEF"] + randomatkpt
-    # coins   
-    
-    # if attacker.attrib["ATK"] < victim.attrib["DEF"] and randomatkpt < 0:
-    #     damage = attacker.attrib["ATK"] - victim.attrib["DEF"] - randomatkpt
     victim.attrib["HP"] -= damage
     # Calculate EXP
     attacker.attrib["EXP"] += damage
@@ -481,7 +355,6 @@ def attack(attacker, victim):
     if victim.attrib["HP"] <= 0:
         print("{Name} has been defeated!" .format(**victim.attrib))
         log("{Name} has been defeated!" .format(**victim.attrib), out)   
-        # os.system("afplay unit_dead.wav&")
         if victim in player.units:
             opsystem("audio/player_dead.wav")
             player.units.remove(victim)
@@ -509,8 +382,6 @@ def attack(attacker, victim):
             attacker.attrib["Rank"] = RANK[2]  
         elif attacker.attrib["Level"] == 4:
                 attacker.attrib["Rank"] = RANK[3]  
-        # attacker. = attacker.attrib["Rank"]
-        # print(f"[+] EXP -100, Player Unit {attacker +1}: ", end='')
         opsystem("audio/level_up.wav")
         print("\n[+] EXP -100, {Profession} {Name} has been promoted to {Rank}." .format(**attacker.attrib))
         if attacker in player.units:
@@ -545,7 +416,6 @@ def attack(attacker, victim):
         
         log("\n[+] EXP -100, {Profession} {Name} has been promoted to {Rank}." .format(**attacker.attrib), out)
         
-        # os.system("afplay level_up.wav&")
 
     # Promotion logic - victim
     elif victim.attrib["EXP"] >= 100:
@@ -557,8 +427,6 @@ def attack(attacker, victim):
             victim.attrib["Rank"] = RANK[2]  
         elif victim.attrib["Level"] == 4:
                 victim.attrib["Rank"] = RANK[3]  
-        # victim. = victim.attrib["Rank"]
-        # print(f"[+] EXP -100,  Unit {victim +1}: ", end='')
         opsystem("audio/level_up.wav")
         print("\n[+] EXP -100, {Profession} {Name} has been promoted to {Rank}." .format(**victim.attrib))
         if victim in player.units:
@@ -591,8 +459,7 @@ def attack(attacker, victim):
                 print("\n[+] {Profession} {Name}s ATK successfully increased by 1" .format(**victim.attrib))
         
         log("\n[+] EXP -100, {Profession} {Name} has been promoted to {Rank}." .format(**victim.attrib), out)
-        
-        # os.system("afplay level_up.wav&")
+    
         
 
 
@@ -618,7 +485,6 @@ def is_game_over(player_units, ai_units):
         
         log(f"{player_name} wins! Congratulations!", out)
         opsystem("audio/win.wav")
-        # os.system("afplay win.mp3&")
         return True
     else:
         return False
@@ -629,7 +495,6 @@ def display_stats(player_units, ai_units):
     print("\nPlayer Units\n")
     log("\nPlayer Units\n", out)
     team_strength_value = team_strength(player)
-    # team_strength_text = f"Team Strength: {team_strength_value:.2f}"
     # AI Team Strength table
     team_strength_table = [
     ["Team Strength", f"{team_strength_value:.2f}"],
@@ -637,7 +502,6 @@ def display_stats(player_units, ai_units):
 ]
 
 # Display AI Team Strength table
-    # print("\n")
     print(tabulate(team_strength_table, tablefmt="fancy_grid"))
     log(tabulate(team_strength_table, tablefmt="fancy_grid"), out)
     print("\n")
@@ -655,18 +519,12 @@ def display_stats(player_units, ai_units):
             unit.attrib["EXP"],
             unit.attrib["Rank"]
         ])
-    # print(team_strength_text)
-    # coins_indication = progress_bar(player.coins, "Pycoins")
-    # print("\n")
-    # print(coins_indication)
-    # print("\n")
     print(tabulate(player_table, headers=["Unit", "Name", "Profession", "HP", "ATK", "DEF", "EXP", "Rank"], tablefmt="fancy_grid"))
     log(tabulate(player_table, headers=["Unit", "Name", "Profession", "HP", "ATK", "DEF", "EXP", "Rank"], tablefmt="fancy_grid"), out)
 
     print("\nAI Units\n")
     log("\nAI Units\n", out)
     team_strength_value = team_strength(ai)
-    # team_strength_text = f"Team Strength: {team_strength_value:.2f}"
    
 
 # AI Team Strength table
@@ -676,7 +534,6 @@ def display_stats(player_units, ai_units):
 ]
 
 # Display AI Team Strength table
-    # print("\n")
     print(tabulate(team_strength_table, tablefmt="fancy_grid"))
     print("\n")
     log(tabulate(team_strength_table, tablefmt="fancy_grid"), out)
@@ -688,85 +545,13 @@ def display_stats(player_units, ai_units):
             unit.attrib["Name"],
             unit.attrib["Profession"],
             progress_bar(unit.attrib["HP"], "HP"),
-            # unit.attrib["HP"],
             unit.attrib["ATK"],
             unit.attrib["DEF"],
             unit.attrib["EXP"],
             unit.attrib["Rank"]
         ])
-    # print(team_strength_text)
-    # coins_indication = progress_bar(ai.coins, "Pycoins")
-    # # print("\n")
-    # print(coins_indication)
-    # print("\n")
     print(tabulate(ai_table, headers=["Unit", "Name", "Profession", "HP", "ATK", "DEF", "EXP", "Rank"], tablefmt="fancy_grid"))
     log(tabulate(ai_table, headers=["Unit", "Name", "Profession", "HP", "ATK", "DEF", "EXP", "Rank"], tablefmt="fancy_grid"), out)
-# def display_stats(player_units, ai_units):
-#     print("\n---------- Player Units ----------")
-#     # print("\n")
-#     team_strength_value = team_strength(player)
-#     border = "+" + "-" * 32 + "+"
-#     text = f"Team Strength: {team_strength_value}".center(32)
-#     output = f"{border}\n|{text}|\n{border}"
-#     print(output)
-#     coins_indication = progress_bar(player.coins, "Pycoins")
-#     # print("\n")
-#     print(coins_indication)
-#     log("\n---------- Player Units ----------", out)
-#     for i, unit in enumerate(player_units):
-#         playerhp = progress_bar(unit.attrib["HP"], "HP")
-#         # print(f"{i+1}. {unit}: HP={unit.attrib['HP']} ATK={unit.attrib['ATK']} DEF={unit.attrib['DEF']}")
-        
-#         print(f'''
-# ----------------------------------
-# Player Unit {i+1}: {playerhp}
-# ----------------------------------
-# {unit}
-# ----------------------------------
-#               ''')
-        
-#         log(f'''
-# ----------------------------------
-# Player Unit {i+1}: {playerhp}
-# ----------------------------------
-# {unit}
-# ----------------------------------
-#               ''', out)
-#         # print(f"Player Unit {i+1}:\n {unit}")
-#         # print("--------------------------\n")
-#     print("\n------------ AI Units ------------")
-#     # print("\n")
-#     team_strength_value = team_strength(player)
-#     border = "+" + "-" * 32 + "+"
-#     text = f"Team Strength: {team_strength_value}".center(32)
-#     output = f"{border}\n|{text}|\n{border}"
-#     print(output)
-#     coins_indication = progress_bar(ai.coins, "Pycoins")
-#     # print("\n")
-#     print(coins_indication)
-#     log("\n------------ AI Units ------------", out)
-#     for i, unit in enumerate(ai_units):
-#         # print(f"{i+1}. {unit}: HP={unit.attrib['HP']} ATK={unit.attrib['ATK']} DEF={unit.attrib['DEF']}")
-#         aihp = progress_bar(unit.attrib["HP"], "HP")
-#         print(f'''
-# ----------------------------------
-# AI Unit {i+1}:     {aihp}
-# ----------------------------------
-# {unit}
-# ----------------------------------
-#               ''')
-        
-#         log(f'''
-# ----------------------------------
-# AI Unit {i+1}:     {aihp}
-# ----------------------------------
-# {unit}
-# ----------------------------------
-#               ''', out)
-        # print(f"AI Unit {i+1}:\n {unit}\n")
-        # print("--------------------------\n")
-
-    # print("\n-----------------------------------\n")
 
 
 
@@ -774,15 +559,12 @@ def display_stats(player_units, ai_units):
 def opsystem(audio: str):
     if platform == "linux" or platform == "linux2":
         os.system(f"aplay {audio}&")
-        # print("Linux")
         # linux
     elif platform == "darwin":
-        # print("MacOS")
         os.system(f"afplay {audio}&")
-        # OS X
+        # macOS
     elif platform == "win32":
         winsound.PlaySound(f"{audio}", winsound.SND_ASYNC)
-        # print("Windows")
         # Windows...
     else:
         print("Sorry, sound for your operating system is not supported yet")
@@ -795,28 +577,25 @@ def log(event, inpout):
     global file
     with open(f"logs/{log_file_name}", "a") as file:
         # current date and time
-        # current_time = datetime.datetime.now()
-        # file.write(f"{current_time}\n")
         if inpout == 'inp':
             file.write(f"> {event}\n")
         #logging
         elif inpout == 'out':
             file.write(f"{event}\n")
-        # file.write(f"Details: {details}\n")
-        # file.write("--------------------\n")   
+
  
 def pybot_suggestions(player):
-    # Calculate the maximum potential increase in attributes (ATK, DEF, HP) for each unit
+    # maximum potential increase in attributes (ATK, DEF, HP) for each unit
     max_increase = []
     for unit in player.units:
         max_increase.append(
             max(100 - unit.attrib["HP"], 8 - unit.attrib["ATK"], 8 - unit.attrib["DEF"])
         )
 
-    # Find the unit with the maximum potential increase
+    # unit with the maximum potential increase
     max_increase_unit = player.units[max_increase.index(max(max_increase))]
 
-    # Determine the suggested attribute to upgrade based on the unit's current stats and available coins
+    # suggested attribute to upgrade based on the unit current stats and pycoins
     suggested_attribute = None
     if player.coins >= 100 and max_increase_unit.attrib["HP"] < 80:
         suggested_attribute = "HP"
@@ -825,7 +604,7 @@ def pybot_suggestions(player):
     elif player.coins >= 50 and max_increase_unit.attrib["DEF"] < 8:
         suggested_attribute = "DEF"
 
-    # Determine the suggested unit to upgrade
+    # suggested unit to upgrade
     if suggested_attribute is not None:
         suggested_unit = max_increase_unit
         suggestion = f"Pybot suggests you to upgrade Player Unit {player.units.index(suggested_unit) + 1} - {suggested_attribute}"
@@ -864,10 +643,7 @@ def coin_store(visitor):
         log(choice, inp)
         
     else:
-        # if visitor.coins > 50 and visitor.coins < 100:
         choice = str(random.randint(2, 3))
-        # else:
-        #     choice = str(random.randint(1, 3))
     if choice == "1":
         if visitor.coins >= 100 and visitor == player:
             valid = False
@@ -909,7 +685,6 @@ def coin_store(visitor):
                     chosen_unit_index = int(chosen_unit) - 1
                     visitor.units[chosen_unit_index].attrib["ATK"] += 2
                     visitor.coins -= 50
-                    # visitor.units[chosen_unit_index].attrib["ATK"] = min(player.units[chosen_unit_index].attrib["ATK"], 100)
                     valid = True
                 else:
                     print(f"\n[-] ERROR. Please choose a valid unit in the range 1-{len(player.units)}\n")
@@ -925,27 +700,6 @@ def coin_store(visitor):
             opsystem("audio/pystore_spend.wav")
         else:
             print("\nInsufficient Pycoins.")
-    
-    # elif choice == "2":
-    #     if visitor.coins >= 50:
-    #         visitor.coins -= 50
-    #         for unit in visitor.units:
-    #             unit.attrib["ATK"] += 2
-    #         if visitor == player:
-    #             print("\nYou bought an Attack Boost. All Player units' ATK increased by 2.")
-    #         else:
-    #             print("\nAI bought an Attack Boost from the Pystore. All AI units' ATK increased by 2.")
-    #     else:
-    #         print("\nInsufficient Pycoins.")
-    # elif choice == "3":
-    #     if visitor.coins >= 50:
-    #         visitor.coins -= 50
-    #         for unit in visitor.units:
-    #             unit.attrib["DEF"] += 2
-    #         if visitor in player.units:
-    #             print("\nYou bought a Defense Boost. All PLayer units' DEF increased by 2.")
-    #         else:
-    #             print("\nAI bought a Defense Boost from the Pystore. All AI units' DEF increased by 2.")
     elif choice == "3":
         if visitor.coins >= 50 and visitor == player:
             valid = False
@@ -955,7 +709,6 @@ def coin_store(visitor):
                     chosen_unit_index = int(chosen_unit) - 1
                     visitor.units[chosen_unit_index].attrib["DEF"] += 2
                     visitor.coins -= 50
-                    # visitor.units[chosen_unit_index].attrib["ATK"] = min(player.units[chosen_unit_index].attrib["ATK"], 100)
                     valid = True
                 else:
                     print(f"\n[-] ERROR. Please choose a valid unit in the range 1-{len(player.units)}\n")
@@ -971,8 +724,6 @@ def coin_store(visitor):
             opsystem("audio/pystore_spend.wav")
         else:
             print("\nInsufficient Pycoins.")
-        # else:
-        #     print("\nInsufficient Pycoins.")
     elif choice == "4":
         print("\nExiting store...\n")
         return
@@ -1105,13 +856,6 @@ def progress_bar(value, field):
 
 # game introduction
 def game_intro():
-#     banner_text = '''                                            
-#  _____     _   _   _        _____             _     
-# | __  |___| |_| |_| |___   | __  |___ _ _ ___| |___ 
-# | __ -| .'|  _|  _| | -_|  |    -| . | | | .'| | -_|
-# |_____|__,|_| |_| |_|___|  |__|__|___|_  |__,|_|___|
-#                                      |___|          
-#     '''
 
     banner_text = '''
   ___      _   _              __      __         __              
@@ -1180,15 +924,33 @@ Instructions:
 17. In Pro Mode, the AI will strategically choose its units to target.
 16. All the best and have fun!
 ''')
+       log('''
+===== Game Help =====             
+
+Instructions:
+
+1. The game follows a turn-based battle system.
+2. Each player takes turns attacking.
+3. On your turn, you will be prompted to select one of your units to attack with.
+4. After choosing your attacking unit, you will then select the AI's unit to attack.
+5. Damage dealt during the attack is calculated based on the attacker's attack points and the target's defense points.
+6. The game continues until all units from one side are defeated.
+7. Pay attention to your unit's health and strategize your attacks to defeat the AI's units efficiently.
+8. Utilize your units' unique abilities and strengths to gain an advantage in battle.
+9. Throughout the game, you can collect Pycoins.
+10. Pycoins can be used at the Pystore to purchase power-ups and enhancements for your units.
+11. Use your Pycoins wisely to improve your units' abilities and increase your chances of victory.
+12. When your unit ranks up, you have the choice to increase either its attack (ATK) or defense (DEF) points by 1.
+13. Consider your unit's role and playstyle when deciding to boost ATK or DEF.
+14. Manage your resources effectively and make strategic decisions during the game.
+15. Remember, in Novice Mode, Pybot will assist you by suggesting unit and target choices. 
+16. In Intermediate Mode and Pro Mode, you're on your own. 
+17. In Pro Mode, the AI will strategically choose its units to target.
+16. All the best and have fun!
+''', out)
 
 
-        # logging
-                    # log("Instructions:", out)
-                    # log("1. Each player takes turns attacking.", out)
-                    # log("2. You will be prompted to select one of your units to attack with, and then choose the AI's unit to attack.", out)
-                    # log("3. Damage dealt is calculated based on the attacker's attack points and the defender's defense points.", out)
-                    # log("4. The game continues until all units from one side are defeated.", out)
-                    # log("5. Good luck and have fun!\n", out)
+
     else:
         pass
     global mode
