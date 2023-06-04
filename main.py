@@ -94,11 +94,11 @@ def main():
                     profession = input(f"[-] ERROR, BAD INPUT. Enter W for Warrior or T for Tanker for Unit {i + 1}: ")
                     log(f"[-] ERROR, BAD INPUT. Enter W for Warrior or T for Tanker for Unit {i + 1}: ", out)
                     log(profession, inp)
-            except:
-                # profession = input("[-] ERROR. No value specified. Please specify a value [W/T]: ")
-                # log("[-] ERROR. No value specified. Please specify a value [W/T]: ", out)
-                # log(profession, inp)
-                continue
+            except IndexError:
+                profession = input("[-] ERROR. No value specified. Please specify a value [W/T]: ")
+                log("[-] ERROR. No value specified. Please specify a value [W/T]: ", out)
+                log(profession, inp)
+
                 
         
 
