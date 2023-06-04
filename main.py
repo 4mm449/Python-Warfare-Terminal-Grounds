@@ -576,11 +576,11 @@ def opsystem(audio: str):
 def log(event, inpout):
     # Define the log file name with the current date and time
     global file
-    with open(f"logs/{log_file_name}", "a", encoding="uft-8") as file:
+    with open(f"logs/{log_file_name}", "a", encoding="utf-8") as file:
         # current date and time
         if inpout == 'inp':
             file.write(f"> {event}\n")
-        #logging
+        # logging
         elif inpout == 'out':
             file.write(f"{event}\n")
 
