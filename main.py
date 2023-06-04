@@ -86,7 +86,7 @@ def main():
                     unit.attrib["Rank"]
                     ])
                     print(tabulate(player_table, headers=["Name", "Profession", "HP", "ATK", "DEF", "EXP", "Rank"], tablefmt="fancy_grid"))
-                    log(tabulate(player_table, headers=["Name", "Profession", "HP", "ATK", "DEF", "EXP", "Rank"], tablefmt="fancy_grid"), out)
+                    # log(tabulate(player_table, headers=["Name", "Profession", "HP", "ATK", "DEF", "EXP", "Rank"], tablefmt="fancy_grid"), out)
                     
                     player.add_unit(unit)
                     profession_check = False
@@ -95,9 +95,10 @@ def main():
                     log(f"[-] ERROR, BAD INPUT. Enter W for Warrior or T for Tanker for Unit {i + 1}: ", out)
                     log(profession, inp)
             except:
-                profession = input("[-] ERROR. No value specified. Please specify a value [W/T]: ")
-                log("[-] ERROR. No value specified. Please specify a value [W/T]: ", out)
-                log(profession, inp)
+                # profession = input("[-] ERROR. No value specified. Please specify a value [W/T]: ")
+                # log("[-] ERROR. No value specified. Please specify a value [W/T]: ", out)
+                # log(profession, inp)
+                continue
                 
         
 
@@ -121,7 +122,7 @@ def main():
                     unit.attrib["Rank"]
                 ])
         print(tabulate(ai_table, headers=["Name", "Profession", "HP", "ATK", "DEF", "EXP", "Rank"], tablefmt="fancy_grid"))
-        log(tabulate(ai_table, headers=["Name", "Profession", "HP", "ATK", "DEF", "EXP", "Rank"], tablefmt="fancy_grid"), out)
+        # # log(tabulate(ai_table, headers=["Name", "Profession", "HP", "ATK", "DEF", "EXP", "Rank"], tablefmt="fancy_grid"), out)
 
     try_again = True
     game_over = False
@@ -503,7 +504,7 @@ def display_stats(player_units, ai_units):
 
 # Display AI Team Strength table
     print(tabulate(team_strength_table, tablefmt="fancy_grid"))
-    log(tabulate(team_strength_table, tablefmt="fancy_grid"), out)
+    # # log(tabulate(team_strength_table, tablefmt="fancy_grid"), out)
     print("\n")
     log("\n", out)
     player_table = []
@@ -520,7 +521,7 @@ def display_stats(player_units, ai_units):
             unit.attrib["Rank"]
         ])
     print(tabulate(player_table, headers=["Unit", "Name", "Profession", "HP", "ATK", "DEF", "EXP", "Rank"], tablefmt="fancy_grid"))
-    log(tabulate(player_table, headers=["Unit", "Name", "Profession", "HP", "ATK", "DEF", "EXP", "Rank"], tablefmt="fancy_grid"), out)
+    # # log(tabulate(player_table, headers=["Unit", "Name", "Profession", "HP", "ATK", "DEF", "EXP", "Rank"], tablefmt="fancy_grid"), out)
 
     print("\nAI Units\n")
     log("\nAI Units\n", out)
@@ -536,7 +537,7 @@ def display_stats(player_units, ai_units):
 # Display AI Team Strength table
     print(tabulate(team_strength_table, tablefmt="fancy_grid"))
     print("\n")
-    log(tabulate(team_strength_table, tablefmt="fancy_grid"), out)
+    # # log(tabulate(team_strength_table, tablefmt="fancy_grid"), out)
     log("\n", out)
     ai_table = []
     for i, unit in enumerate(ai_units):
@@ -551,7 +552,7 @@ def display_stats(player_units, ai_units):
             unit.attrib["Rank"]
         ])
     print(tabulate(ai_table, headers=["Unit", "Name", "Profession", "HP", "ATK", "DEF", "EXP", "Rank"], tablefmt="fancy_grid"))
-    log(tabulate(ai_table, headers=["Unit", "Name", "Profession", "HP", "ATK", "DEF", "EXP", "Rank"], tablefmt="fancy_grid"), out)
+    # log(tabulate(ai_table, headers=["Unit", "Name", "Profession", "HP", "ATK", "DEF", "EXP", "Rank"], tablefmt="fancy_grid"), out)
 
 
 
