@@ -62,7 +62,7 @@ The game will install the required modules and libraries automatically. However,
 
 Make sure you have pip installed and configured in your Python environment before running the above command. This will install all the necessary packages listed in the `requirements.txt` file. 
 
-#### Do note that the program may throw a module error when its first run, in which case, run the program again and it should run without any errors
+ <b> Do note that the program may throw a module error when its first run, in which case, run the program again and it should run without any errors </b>
 
 Please note that depending on your system configuration, you may need to use pip3 instead of pip to ensure the installation is associated with the correct Python version.
 
