@@ -160,12 +160,12 @@ def main():
                                     f"Please choose one of the options [1-{len(player.units)}], U or P: ", out)
                 log(attacker, inp)
                 # Player wants to check unit stats
-                if attacker.upper() == "U":
+                if attacker[0].upper() == "U":
                     # Display game stats
                     display_stats(player.units, ai.units)
                     continue  # Restart the loop to prompt for input again
                 # player wants to access pystore      
-                if attacker.upper() == "P":
+                if attacker[0].upper() == "P":
                     coin_store(player)
                     continue  # Restart the loop to prompt for input again
 
