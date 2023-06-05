@@ -14,7 +14,11 @@ try:
   from tabulate import tabulate
 except ImportError:
   print("Trying to Install required module: tabulate\n")
-  os.system('python -m pip install tabulate')
+if platform == "darwin":
+    os.system('pip3 install tabulate')
+elif platform == "win32":
+    os.system('pip install tabulate')
+  # os.system('python -m pip install tabulate')
 # above lines try to install tabulate module if not present
 # if all went well, import required module again
 
