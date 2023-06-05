@@ -15,12 +15,12 @@ try:
 except ImportError:
   print("Trying to Install required module: tabulate\n")
 if platform == "darwin":
-    os.system('pip3 install tabulate')
-    quit('Tabulate successfully installed, please run the program again')
-elif platform == "win32":
-    os.system('pip install tabulate')
+    # os.system('pip3 install tabulate')
+    os.system('python3 -m pip install tabulate')
 
-  # os.system('python -m pip install tabulate')
+elif platform == "win32":
+    # os.system('pip install tabulate')
+    os.system('python3 -m pip install tabulate')
 # above lines try to install tabulate module if not present
 # if all went well, import required module again
 
@@ -166,12 +166,12 @@ def main():
                                     f"Please choose one of the options [1-{len(player.units)}], U or P: ", out)
                 log(attacker, inp)
                 # Player wants to check unit stats
-                if attacker[0].upper() == "U":
+                if attacker.upper() == "U":
                     # Display game stats
                     display_stats(player.units, ai.units)
                     continue  # Restart the loop to prompt for input again
                 # player wants to access pystore      
-                if attacker[0].upper() == "P":
+                if attacker.upper() == "P":
                     coin_store(player)
                     continue  # Restart the loop to prompt for input again
 
